@@ -6,632 +6,1178 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <meta name="description" content="R-BUY — You can buy anything. Tell us what you need and we'll source it for you.">
-  <meta name="theme-color" content="#09090b">
+  <meta name="theme-color" content="#f5f3ed">
 
   <title>R-BUY | You Can Buy Anything</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700;800;900&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
+
   <style>
-    html { scroll-behavior: smooth; }
-
-    body { background: #09090b; }
-
-    .hero-glow {
-      background: radial-gradient(
-        ellipse at 50% 40%,
-        rgba(37,99,235,.17),
-        transparent 60%
-      );
+    :root {
+      --bg: #f5f3ed;
+      --panel: #ffffff;
+      --panel-soft: #eeece5;
+      --blue: #2563eb;
+      --orange: #e58b24;
+      --ink: #202127;
+      --muted: #777a82;
+      --line: #deddd6;
     }
 
-    .grid-bg {
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 90px;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
+    ::selection {
+      background: var(--blue);
+      color: white;
+    }
+
+    .mono { font-family: 'DM Mono', monospace; }
+    .handwritten { font-family: 'Caveat', cursive; }
+    .blue-text { color: var(--blue); }
+    .orange-text { color: var(--orange); }
+
+    .editorial-title {
+      letter-spacing: -.085em;
+      line-height: .91;
+    }
+
+    .nav-link {
+      color: #777a82;
+      transition: color .2s ease;
+    }
+
+    .nav-link:hover { color: var(--blue); }
+
+    .primary-button {
+      background: var(--blue);
+      color: white;
+      transition: transform .2s ease, background .2s ease;
+    }
+
+    .primary-button:hover {
+      transform: translateY(-3px);
+      background: #174bc2;
+    }
+
+    /* NAVIGATION */
+
+    .site-header {
+      background: rgba(245,243,237,.92);
+      border-color: var(--line);
+      box-shadow: 0 3px 20px rgba(30,30,30,.035);
+    }
+
+    /* HERO */
+
+    .hero-grid {
       background-image:
-        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
-      background-size: 45px 45px;
+        linear-gradient(rgba(30,40,60,.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(30,40,60,.045) 1px, transparent 1px);
+      background-size: 48px 48px;
       mask-image: linear-gradient(to bottom, black, transparent 90%);
     }
 
-    .glow {
-      box-shadow: 0 0 70px rgba(59,130,246,.10);
+    .hero-orb {
+      background: radial-gradient(
+        circle,
+        rgba(37,99,235,.14),
+        rgba(37,99,235,.025) 48%,
+        transparent 72%
+      );
+      filter: blur(12px);
     }
 
-    .card-hover {
-      transition: transform .25s ease, border-color .25s ease,
-                  background .25s ease;
+    .hero-pill {
+      background: white;
+      border: 1px solid var(--line);
     }
 
-    .card-hover:hover {
-      transform: translateY(-5px);
-      border-color: rgba(59,130,246,.55);
-      background: rgba(24,24,27,.95);
+    .hero-copy { color: var(--muted); }
+
+    .search-box {
+      background: white;
+      border: 1px solid var(--line);
+      box-shadow: 0 15px 45px rgba(30,40,60,.06);
     }
 
-    .category-card.selected {
-      border-color: #3b82f6;
+    .search-box input { color: var(--ink); }
+    .search-box input::placeholder { color: #a1a3aa; }
+
+    /* PRODUCT COLLAGE */
+
+    .art-stage {
+      position: relative;
+      width: 100%;
+      max-width: 550px;
+      height: 440px;
+      margin: auto;
+    }
+
+    .art-glow {
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%,-50%);
+      border-radius: 50%;
       background: rgba(37,99,235,.12);
-      box-shadow: 0 0 25px rgba(37,99,235,.10);
+      filter: blur(85px);
     }
+
+    .product-piece {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(30,30,30,.07);
+      background: linear-gradient(145deg,#fff,#eeece5);
+      box-shadow: 0 25px 55px rgba(40,40,40,.12);
+      transition: transform .35s ease, box-shadow .35s ease;
+    }
+
+    .product-piece:hover {
+      transform: rotate(0deg) scale(1.08) !important;
+      z-index: 10;
+      box-shadow: 0 25px 65px rgba(37,99,235,.15);
+    }
+
+    .piece-one {
+      left: 7%; top: 8%;
+      width: 180px; height: 190px;
+      border-radius: 28px;
+      transform: rotate(-11deg);
+    }
+
+    .piece-two {
+      right: 5%; top: 18%;
+      width: 175px; height: 165px;
+      border-radius: 26px;
+      transform: rotate(10deg);
+    }
+
+    .piece-three {
+      left: 22%; bottom: 7%;
+      width: 185px; height: 160px;
+      border-radius: 26px;
+      transform: rotate(7deg);
+    }
+
+    .piece-four {
+      right: 5%; bottom: 4%;
+      width: 125px; height: 115px;
+      border-radius: 23px;
+      transform: rotate(-9deg);
+    }
+
+    .piece-emoji {
+      font-size: 75px;
+      filter: drop-shadow(0 12px 15px rgba(0,0,0,.12));
+    }
+
+    .art-label {
+      font-size: 10px;
+      letter-spacing: .18em;
+      color: #85858c;
+      font-family: 'DM Mono', monospace;
+    }
+
+    .floating-note {
+      position: absolute;
+      font-family: 'Caveat', cursive;
+      font-size: 23px;
+      color: var(--blue);
+      transform: rotate(-9deg);
+    }
+
+    /* CONTINUOUS PAGE-WIDE SHOPPING CART */
 
     .cart-track {
-      position: relative;
-      width: min(500px, 85vw);
-      height: 85px;
-      margin: 35px auto 0;
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 8px;
+      height: 66px;
+      z-index: 70;
+      pointer-events: none;
       overflow: hidden;
-      border-bottom: 1px solid rgba(63,63,70,.7);
+    }
+
+    .cart-road {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 4px;
+      border-bottom: 1px dashed rgba(37,99,235,.28);
     }
 
     .moving-cart {
       position: absolute;
-      top: 10px;
-      left: -65px;
+      left: -110px;
+      bottom: 8px;
       display: flex;
       align-items: center;
       gap: 8px;
-      animation: cartMove 7s linear infinite;
+      animation: cartTravel 17s linear infinite,
+                 cartBounce .55s ease-in-out infinite alternate;
+      will-change: left, transform;
     }
 
-    .cart-glow {
-      filter: drop-shadow(0 0 12px rgba(59,130,246,.65));
+    .cart-brand {
+      color: var(--blue);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: .12em;
+    }
+
+    .cart-svg {
+      filter: drop-shadow(0 5px 5px rgba(37,99,235,.15));
     }
 
     .cart-wheel {
       transform-box: fill-box;
       transform-origin: center;
-      animation: wheelSpin .8s linear infinite;
+      animation: wheelSpin .55s linear infinite;
     }
 
-    .cart-trail {
-      position: absolute;
-      left: 0;
-      top: 35px;
-      width: 100%;
-      height: 1px;
-      background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(59,130,246,.4),
-        transparent
-      );
+    @keyframes cartTravel {
+      from { left: -110px; }
+      to { left: calc(100% + 110px); }
     }
 
-    @keyframes cartMove {
-      0% { left: -65px; }
-      100% { left: calc(100% + 65px); }
+    @keyframes cartBounce {
+      from { transform: translateY(0) rotate(-1deg); }
+      to { transform: translateY(-10px) rotate(2deg); }
     }
 
     @keyframes wheelSpin {
       to { transform: rotate(360deg); }
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(18px); }
-      to { opacity: 1; transform: translateY(0); }
+    /* SECTION DETAILS */
+
+    .section-kicker {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--blue);
     }
 
-    .fade-in {
-      animation: fadeIn .8s ease both;
+    .category-card {
+      position: relative;
+      min-height: 205px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: white;
+      color: var(--ink);
+      transition: transform .25s ease, border-color .25s ease,
+                  box-shadow .25s ease, background .25s ease;
+    }
+
+    .category-card:hover {
+      transform: translateY(-6px) rotate(-.5deg);
+      border-color: rgba(37,99,235,.55);
+      box-shadow: 0 16px 35px rgba(30,40,60,.08);
+    }
+
+    .category-card.selected {
+      border: 2px solid var(--blue);
+      background: #edf3ff;
+      box-shadow: 0 0 25px rgba(37,99,235,.10);
+    }
+
+    .category-art {
+      position: absolute;
+      right: -8px;
+      top: 5px;
+      font-size: 83px;
+      opacity: .85;
+      transform: rotate(-12deg);
+      transition: transform .3s ease;
+    }
+
+    .category-card:hover .category-art {
+      transform: rotate(0deg) scale(1.12);
+    }
+
+    .category-description { color: var(--muted); }
+
+    .category-info {
+      border: 1px solid var(--line);
+      background: white;
+    }
+
+    .find-card {
+      position: relative;
+      min-height: 235px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: white;
+      color: var(--ink);
+      transition: border-color .25s ease, transform .25s ease,
+                  box-shadow .25s ease;
+    }
+
+    .find-card:hover {
+      border-color: var(--blue);
+      transform: translateY(-5px);
+      box-shadow: 0 18px 40px rgba(30,40,60,.08);
+    }
+
+    .find-art {
+      position: absolute;
+      right: 10px;
+      top: 5px;
+      font-size: 100px;
+      opacity: .9;
+      transform: rotate(-10deg);
+      transition: transform .3s ease;
+    }
+
+    .find-card:hover .find-art {
+      transform: rotate(0deg) scale(1.08);
+    }
+
+    .step-number {
+      font-size: 64px;
+      line-height: 1;
+      font-weight: 900;
+      letter-spacing: -.09em;
+      color: rgba(37,99,235,.23);
+    }
+
+    .faq-item { border-bottom: 1px solid var(--line); }
+
+    .faq-question {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      padding: 22px 0;
+      text-align: left;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .faq-answer {
+      display: none;
+      padding: 0 35px 22px 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .faq-item.open .faq-answer { display: block; }
+
+    .faq-item.open .faq-icon {
+      transform: rotate(45deg);
+      color: var(--blue);
+    }
+
+    .faq-icon {
+      font-size: 22px;
+      transition: transform .2s ease;
+    }
+
+    /* ABOUT AND PROCESS */
+
+    .quote-card {
+      position: relative;
+      border: 1px solid var(--line);
+      background: white;
+      box-shadow: 0 20px 55px rgba(30,40,60,.045);
+    }
+
+    .process-section {
+      background: #eeece5;
+      border-color: var(--line);
+    }
+
+    .finds-section {
+      background: #eeece5;
+      border-color: var(--line);
+    }
+
+    .cta-card {
+      background: #e9effc;
+      border: 1px solid #d4def2;
+    }
+
+    .footer-section {
+      background: #eeece5;
+      border-color: var(--line);
+    }
+
+    .footer-link { color: #777a82; }
+    .footer-link:hover { color: var(--blue); }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 640px) {
+      .art-stage { height: 350px; }
+
+      .piece-one { width: 135px; height: 145px; }
+      .piece-two { width: 130px; height: 130px; }
+      .piece-three { width: 145px; height: 125px; }
+      .piece-four { width: 100px; height: 90px; }
+
+      .piece-emoji { font-size: 57px; }
+      .category-card { min-height: 175px; }
+      .category-art { font-size: 65px; }
+
+      .cart-track { bottom: 3px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
-        animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
         scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+
+      .moving-cart,
+      .cart-wheel {
+        animation: none !important;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
       }
     }
   </style>
 </head>
 
-<body class="min-h-screen text-zinc-100">
+<body>
 
-<!-- HEADER -->
-<header class="sticky top-0 z-50 border-b border-zinc-900 bg-[#09090b]/90 backdrop-blur-xl">
+<!-- NAVIGATION -->
 
+<header class="site-header sticky top-0 z-50 border-b backdrop-blur-xl">
   <nav class="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 sm:px-8">
 
-    <a href="index.html" class="text-2xl font-black tracking-tight">
-      R<span class="text-blue-400">-</span>BUY<span class="text-blue-400">.</span>
+    <a href="#home" class="text-2xl font-black tracking-tight">
+      R<span class="text-blue-600">-</span>BUY<span class="text-blue-600">.</span>
     </a>
 
-    <div class="hidden items-center gap-8 text-sm text-zinc-400 md:flex">
-      <a href="#home" class="transition hover:text-white">Home</a>
-      <a href="#categories" class="transition hover:text-white">Categories</a>
-      <a href="#about" class="transition hover:text-white">About</a>
-      <a href="#how-it-works" class="transition hover:text-white">How it works</a>
+    <div class="hidden items-center gap-7 text-sm md:flex">
+      <a href="#home" class="nav-link">Home</a>
+      <a href="#categories" class="nav-link">Categories</a>
+      <a href="#finds" class="nav-link">The Finds Wall</a>
+      <a href="#about" class="nav-link">About</a>
+      <a href="#how-it-works" class="nav-link">How it works</a>
     </div>
 
     <a href="https://benjaminmwangi180-hub.github.io/R-BUY-ORDER/"
-       class="rounded-xl bg-blue-500 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-400">
-      Start an order
+       class="primary-button rounded-lg px-5 py-3 text-sm font-bold">
+      Start an order ↗
     </a>
-
   </nav>
 </header>
-
 
 <main>
 
 <!-- HERO -->
+
 <section id="home" class="relative overflow-hidden">
 
-  <div class="hero-glow grid-bg absolute inset-0 pointer-events-none"></div>
+  <div class="hero-grid pointer-events-none absolute inset-0"></div>
+  <div class="hero-orb pointer-events-none absolute right-0 top-10 h-[600px] w-[600px]"></div>
 
-  <div class="relative mx-auto flex min-h-[640px] max-w-7xl flex-col items-center justify-center px-5 pb-16 pt-24 text-center sm:px-8">
+  <div class="relative mx-auto grid max-w-7xl items-center gap-8 px-5 pb-12 pt-20 sm:px-8 lg:min-h-[680px] lg:grid-cols-2 lg:gap-4">
 
-    <div class="fade-in mb-8 inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/80 px-4 py-2 text-xs text-zinc-400">
-      <span class="h-2 w-2 animate-pulse rounded-full bg-blue-400"></span>
-      RETAIL BUY · YOUR PERSONAL SOURCING PARTNER
-    </div>
+    <div class="relative z-10">
 
-    <h1 class="fade-in max-w-5xl text-5xl font-black leading-[1.05] tracking-tight sm:text-7xl lg:text-8xl">
-      You can buy
-      <span class="block text-blue-400">anything.</span>
-    </h1>
+      <div class="hero-pill inline-flex items-center gap-2 px-3 py-2">
+        <span class="h-2 w-2 rounded-full bg-blue-500"></span>
+        <span class="mono text-[10px] tracking-[.18em] text-zinc-500">
+          RETAIL BUY / YOUR PERSONAL SOURCING PARTNER
+        </span>
+      </div>
 
-    <p class="mt-7 max-w-2xl text-base leading-7 text-zinc-400 sm:text-lg">
-      Found something you want? Tell us what you're looking for.
-      We'll investigate, source it and bring you an offer worth considering.
-    </p>
+      <h1 class="editorial-title mt-9 text-6xl font-black sm:text-8xl lg:text-[104px]">
+        Find it.<br>
+        Want it.<br>
+        <span class="text-blue-600">Get it.</span>
+      </h1>
 
+      <div class="mt-7 flex items-start gap-3">
+        <div class="mt-2 h-12 w-1 shrink-0 bg-blue-600"></div>
+        <p class="max-w-md text-base leading-7 text-zinc-600 sm:text-lg">
+          Whatever you've got in mind, there's a good chance
+          we can help you find it. Tell us what you need.
+        </p>
+      </div>
 
-    <!-- SEARCH -->
-    <form id="searchForm" class="mt-10 w-full max-w-2xl">
+      <p class="handwritten mt-5 rotate-[-3deg] text-2xl text-blue-600">
+        Yes, we mean anything.
+      </p>
 
-      <div class="glow flex items-center gap-3 rounded-2xl border border-zinc-800 bg-zinc-900/90 p-2 transition focus-within:border-blue-500">
+      <form id="searchForm" class="search-box mt-8 flex max-w-xl gap-2 p-2 focus-within:border-blue-500">
 
-        <svg class="ml-3 h-5 w-5 shrink-0 text-zinc-500"
-             viewBox="0 0 24 24"
-             fill="none"
-             stroke="currentColor"
-             stroke-width="2">
-          <circle cx="11" cy="11" r="7"/>
-          <path d="m20 20-4-4"/>
-        </svg>
-
-        <input
-          id="search"
-          type="text"
-          class="w-full min-w-0 bg-transparent py-3 text-sm text-white placeholder:text-zinc-600 sm:text-base"
-          placeholder="What are you looking for?"
-          autocomplete="off"
-        >
+        <input id="search" type="text"
+          class="min-w-0 flex-1 bg-transparent px-3 py-3 text-sm outline-none"
+          placeholder="I'm looking for..."
+          autocomplete="off">
 
         <button type="submit"
-                class="shrink-0 rounded-xl bg-blue-500 px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-400">
-          Find it <span class="ml-1">↗</span>
+          class="primary-button shrink-0 px-5 py-3 text-sm font-bold">
+          Find it ↗
         </button>
+      </form>
 
-      </div>
-
-      <p id="searchError" class="mt-3 hidden text-sm text-red-400">
-        Please enter a product or select a category.
+      <p id="searchError" class="mt-3 hidden text-sm text-red-500">
+        Tell us what you're looking for first.
       </p>
 
-    </form>
+      <div class="mt-5 flex flex-wrap items-center gap-4 text-xs text-zinc-500">
+        <a href="#categories" class="transition hover:text-blue-600">
+          Browse categories ↓
+        </a>
 
+        <span class="text-zinc-300">/</span>
 
-    <a href="https://benjaminmwangi180-hub.github.io/R-BUY-ORDER/"
-       class="mt-5 inline-flex items-center gap-2 rounded-xl border border-zinc-700 px-6 py-3 text-sm font-semibold text-zinc-300 transition hover:border-zinc-500 hover:bg-zinc-900 hover:text-white">
-      Place a custom order →
-    </a>
+        <a href="https://benjaminmwangi180-hub.github.io/R-BUY-ORDER/"
+           class="transition hover:text-blue-600">
+          Place a custom request ↗
+        </a>
+      </div>
+    </div>
 
-    <p class="mt-4 text-xs text-zinc-600">
-      Can't find it listed? Request it anyway.
-    </p>
+    <!-- PRODUCT COLLAGE -->
 
+    <div class="relative mt-8 lg:mt-0">
 
-    <!-- ANIMATED SHOPPING CART -->
-    <div class="cart-track" aria-hidden="true">
-
-      <div class="cart-trail"></div>
-
-      <div class="moving-cart cart-glow">
-
-        <span class="text-xs font-semibold tracking-widest text-blue-400">
-          R-BUY
-        </span>
-
-        <svg width="65" height="55" viewBox="0 0 65 55" fill="none">
-
-          <path d="M3 7H10L17 35H49L58 14H14"
-                stroke="#60A5FA"
-                stroke-width="3"
-                stroke-linecap="round"
-                stroke-linejoin="round"/>
-
-          <path d="M19 19H54M22 26H51"
-                stroke="#3B82F6"
-                stroke-width="2"
-                stroke-linecap="round"/>
-
-          <circle class="cart-wheel" cx="22" cy="44" r="4"
-                  fill="#60A5FA"/>
-
-          <circle class="cart-wheel" cx="46" cy="44" r="4"
-                  fill="#60A5FA"/>
-
-          <path d="M23 12L26 3H42L46 12"
-                stroke="#60A5FA"
-                stroke-width="2"
-                stroke-linecap="round"/>
-
-        </svg>
-
+      <div class="absolute right-4 top-0 handwritten text-2xl text-orange-500">
+        Things worth finding.
       </div>
 
+      <div class="art-stage">
+        <div class="art-glow"></div>
+
+        <div class="product-piece piece-one">
+          <div class="text-center">
+            <span class="piece-emoji">🎧</span>
+            <p class="art-label mt-3">TECH / 001</p>
+          </div>
+        </div>
+
+        <div class="product-piece piece-two">
+          <div class="text-center">
+            <span class="piece-emoji">👟</span>
+            <p class="art-label mt-3">STYLE / 002</p>
+          </div>
+        </div>
+
+        <div class="product-piece piece-three">
+          <div class="text-center">
+            <span class="piece-emoji">📷</span>
+            <p class="art-label mt-3">CREATIVE / 003</p>
+          </div>
+        </div>
+
+        <div class="product-piece piece-four">
+          <div class="text-center">
+            <span class="text-5xl">⌚</span>
+            <p class="art-label mt-2">LIFE / 004</p>
+          </div>
+        </div>
+
+        <div class="floating-note" style="left:0;top:45%">
+          Good finds only.
+        </div>
+
+        <div class="absolute bottom-0 right-2 rotate-[-5deg] border border-blue-500/30 bg-white px-4 py-3 shadow-lg">
+          <p class="mono text-[9px] tracking-widest text-blue-600">
+            YOUR NEXT FIND
+          </p>
+          <p class="mt-1 text-sm font-bold">
+            Starts here ↗
+          </p>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <p class="mt-1 text-[10px] uppercase tracking-[.25em] text-zinc-700">
-      Your shopping journey starts here
-    </p>
-
+  <div class="border-t border-[#deddd6]">
+    <div class="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-5 py-5 sm:px-8">
+      <p class="mono text-[10px] tracking-widest text-zinc-500">
+        RETAIL WITHOUT LIMITS.
+      </p>
+      <p class="text-xs text-zinc-500">
+        Find something. We'll help you get it.
+      </p>
+      <p class="handwritten text-xl text-blue-600">
+        Let's go shopping.
+      </p>
+    </div>
   </div>
 </section>
 
+<!-- CATEGORY PLAYGROUND -->
 
-<!-- QUICK VALUE STRIP -->
-<section class="border-y border-zinc-900 bg-zinc-950/70">
-
-  <div class="mx-auto grid max-w-6xl gap-6 px-5 py-8 text-center sm:grid-cols-3 sm:px-8">
-
-    <div>
-      <p class="font-semibold text-white">Your request</p>
-      <p class="mt-1 text-sm text-zinc-500">Tell us what you need.</p>
-    </div>
-
-    <div>
-      <p class="font-semibold text-white">Our investigation</p>
-      <p class="mt-1 text-sm text-zinc-500">We find suitable sourcing options.</p>
-    </div>
-
-    <div>
-      <p class="font-semibold text-white">Your purchase</p>
-      <p class="mt-1 text-sm text-zinc-500">Review, approve and receive.</p>
-    </div>
-
-  </div>
-</section>
-
-
-<!-- CATEGORIES -->
 <section id="categories" class="mx-auto max-w-7xl px-5 py-24 sm:px-8">
 
-  <div class="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
-
+  <div class="flex flex-col justify-between gap-6 md:flex-row md:items-end">
     <div>
-      <p class="text-xs font-bold uppercase tracking-[.25em] text-blue-400">
-        Explore possibilities
-      </p>
-
-      <h2 class="mt-4 text-3xl font-bold tracking-tight sm:text-5xl">
-        Browse by <span class="text-blue-400">category.</span>
+      <p class="section-kicker">01 / Start somewhere</p>
+      <h2 class="mt-5 text-4xl font-black tracking-[-.06em] sm:text-6xl">
+        What are you<br>
+        <span class="text-blue-600">shopping for?</span>
       </h2>
-
-      <p class="mt-4 max-w-xl text-sm leading-7 text-zinc-500 sm:text-base">
-        From everyday essentials to specialised products, explore
-        some of the things we can help you source.
-      </p>
     </div>
 
-    <p class="text-xs text-zinc-600">
-      Select a category to get started
-    </p>
-
+    <div class="max-w-sm">
+      <p class="text-sm leading-7 text-zinc-600">
+        A little direction helps us get started. Pick a category,
+        tell us what you're looking for, and we'll take it from there.
+      </p>
+      <p class="handwritten mt-3 text-xl text-orange-500">
+        Can't decide? That's okay too.
+      </p>
+    </div>
   </div>
 
+  <div class="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
 
-  <div class="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-
-    <button type="button" data-category="Electronics"
-      class="category-card card-hover rounded-2xl border border-zinc-800 bg-zinc-900/50 p-5 text-left">
-      <span class="text-3xl">🎧</span>
-      <h3 class="mt-5 font-semibold">Electronics</h3>
-      <p class="mt-2 text-xs leading-5 text-zinc-500">Phones, computers, gadgets and more.</p>
+    <button type="button" data-category="Electronics" class="category-card rounded-2xl p-5 text-left">
+      <span class="category-art">🎧</span>
+      <div class="relative z-10 mt-20">
+        <p class="mono text-[9px] tracking-widest text-blue-600">01 / TECH</p>
+        <h3 class="mt-2 text-lg font-bold">Electronics</h3>
+        <p class="category-description mt-2 text-xs">Gadgets, phones & computers.</p>
+      </div>
     </button>
 
-    <button type="button" data-category="Fashion"
-      class="category-card card-hover rounded-2xl border border-zinc-800 bg-zinc-900/50 p-5 text-left">
-      <span class="text-3xl">👟</span>
-      <h3 class="mt-5 font-semibold">Fashion</h3>
-      <p class="mt-2 text-xs leading-5 text-zinc-500">Clothing, shoes, bags and accessories.</p>
+    <button type="button" data-category="Fashion" class="category-card rounded-2xl p-5 text-left">
+      <span class="category-art">👟</span>
+      <div class="relative z-10 mt-20">
+        <p class="mono text-[9px] tracking-widest text-orange-600">02 / STYLE</p>
+        <h3 class="mt-2 text-lg font-bold">Fashion</h3>
+        <p class="category-description mt-2 text-xs">Clothing, shoes & accessories.</p>
+      </div>
     </button>
 
-    <button type="button" data-category="Home & Living"
-      class="category-card card-hover rounded-2xl border border-zinc-800 bg-zinc-900/50 p-5 text-left">
-      <span class="text-3xl">🛋️</span>
-      <h3 class="mt-5 font-semibold">Home & Living</h3>
-      <p class="mt-2 text-xs leading-5 text-zinc-500">Furniture, appliances and home essentials.</p>
+    <button type="button" data-category="Home & Living" class="category-card rounded-2xl p-5 text-left">
+      <span class="category-art">🛋️</span>
+      <div class="relative z-10 mt-20">
+        <p class="mono text-[9px] tracking-widest text-blue-600">03 / LIVING</p>
+        <h3 class="mt-2 text-lg font-bold">Home & Living</h3>
+        <p class="category-description mt-2 text-xs">Furniture & home essentials.</p>
+      </div>
     </button>
 
-    <button type="button" data-category="Beauty & Personal Care"
-      class="category-card card-hover rounded-2xl border border-zinc-800 bg-zinc-900/50 p-5 text-left">
-      <span class="text-3xl">✨</span>
-      <h3 class="mt-5 font-semibold">Beauty & Care</h3>
-      <p class="mt-2 text-xs leading-5 text-zinc-500">Skincare, cosmetics and personal care.</p>
+    <button type="button" data-category="Beauty & Personal Care" class="category-card rounded-2xl p-5 text-left">
+      <span class="category-art">✨</span>
+      <div class="relative z-10 mt-20">
+        <p class="mono text-[9px] tracking-widest text-orange-600">04 / CARE</p>
+        <h3 class="mt-2 text-lg font-bold">Beauty & Care</h3>
+        <p class="category-description mt-2 text-xs">Beauty and personal care.</p>
+      </div>
     </button>
 
-    <button type="button" data-category="Sports & Outdoors"
-      class="category-card card-hover rounded-2xl border border-zinc-800 bg-zinc-900/50 p-5 text-left">
-      <span class="text-3xl">⚽</span>
-      <h3 class="mt-5 font-semibold">Sports & Outdoors</h3>
-      <p class="mt-2 text-xs leading-5 text-zinc-500">Fitness, sports and outdoor equipment.</p>
+    <button type="button" data-category="Sports & Outdoors" class="category-card rounded-2xl p-5 text-left">
+      <span class="category-art">⚽</span>
+      <div class="relative z-10 mt-20">
+        <p class="mono text-[9px] tracking-widest text-blue-600">05 / ACTIVE</p>
+        <h3 class="mt-2 text-lg font-bold">Sports & Outdoors</h3>
+        <p class="category-description mt-2 text-xs">Fitness and outdoor gear.</p>
+      </div>
     </button>
 
-    <button type="button" data-category="Automotive"
-      class="category-card card-hover rounded-2xl border border-zinc-800 bg-zinc-900/50 p-5 text-left">
-      <span class="text-3xl">🚘</span>
-      <h3 class="mt-5 font-semibold">Automotive</h3>
-      <p class="mt-2 text-xs leading-5 text-zinc-500">Car accessories, parts and essentials.</p>
+    <button type="button" data-category="Automotive" class="category-card rounded-2xl p-5 text-left">
+      <span class="category-art">🚘</span>
+      <div class="relative z-10 mt-20">
+        <p class="mono text-[9px] tracking-widest text-orange-600">06 / AUTO</p>
+        <h3 class="mt-2 text-lg font-bold">Automotive</h3>
+        <p class="category-description mt-2 text-xs">Car accessories and parts.</p>
+      </div>
     </button>
 
-    <button type="button" data-category="Office & Technology"
-      class="category-card card-hover rounded-2xl border border-zinc-800 bg-zinc-900/50 p-5 text-left">
-      <span class="text-3xl">💻</span>
-      <h3 class="mt-5 font-semibold">Office & Tech</h3>
-      <p class="mt-2 text-xs leading-5 text-zinc-500">Office equipment, supplies and technology.</p>
+    <button type="button" data-category="Office & Technology" class="category-card rounded-2xl p-5 text-left">
+      <span class="category-art">💻</span>
+      <div class="relative z-10 mt-20">
+        <p class="mono text-[9px] tracking-widest text-blue-600">07 / WORK</p>
+        <h3 class="mt-2 text-lg font-bold">Office & Tech</h3>
+        <p class="category-description mt-2 text-xs">Equipment and supplies.</p>
+      </div>
     </button>
 
-    <button type="button" data-category="Other"
-      class="category-card card-hover rounded-2xl border border-zinc-800 bg-zinc-900/50 p-5 text-left">
-      <span class="text-3xl">📦</span>
-      <h3 class="mt-5 font-semibold">Other</h3>
-      <p class="mt-2 text-xs leading-5 text-zinc-500">Something different? Request it anyway.</p>
+    <button type="button" data-category="Other" class="category-card rounded-2xl p-5 text-left">
+      <span class="category-art">📦</span>
+      <div class="relative z-10 mt-20">
+        <p class="mono text-[9px] tracking-widest text-orange-600">08 / WILD CARD</p>
+        <h3 class="mt-2 text-lg font-bold">Something else</h3>
+        <p class="category-description mt-2 text-xs">We haven't thought of everything.</p>
+      </div>
     </button>
-
   </div>
 
-
-  <div class="mt-7 flex flex-col items-center justify-between gap-4 rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5 sm:flex-row">
-
+  <div class="category-info mt-7 flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between">
     <div>
-      <p id="categoryMessage" class="text-sm font-semibold text-white">
+      <p id="categoryMessage" class="font-semibold">
         Not sure where your product belongs?
       </p>
       <p class="mt-1 text-xs text-zinc-500">
-        You can still request anything, even if it isn't listed here.
+        Select a category, then describe your product in the search box.
       </p>
     </div>
 
     <button id="clearCategory" type="button"
-      class="hidden text-sm font-semibold text-blue-400 hover:text-blue-300">
-      Clear selection
+      class="hidden text-sm font-semibold text-blue-600 hover:text-blue-800">
+      Clear selection ×
     </button>
-
   </div>
-
 </section>
 
+<!-- R-BUY FINDS WALL -->
 
-<!-- ABOUT -->
-<section id="about" class="border-t border-zinc-900">
+<section id="finds" class="finds-section border-y">
+  <div class="mx-auto max-w-7xl px-5 py-24 sm:px-8">
 
-  <div class="mx-auto grid max-w-7xl gap-12 px-5 py-24 sm:px-8 md:grid-cols-2 md:items-center">
+    <div class="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+      <div>
+        <p class="section-kicker">02 / A little inspiration</p>
+        <h2 class="mt-5 text-4xl font-black tracking-[-.06em] sm:text-6xl">
+          The R-BUY<br>
+          <span class="text-blue-600">Finds Wall.</span>
+        </h2>
+      </div>
 
-    <div>
-
-      <p class="text-xs font-bold uppercase tracking-[.25em] text-blue-400">
-        A little about us
+      <p class="max-w-sm text-sm leading-7 text-zinc-600">
+        Just a few things to get your imagination going.
+        These are examples, not a fixed catalogue.
       </p>
+    </div>
 
-      <h2 class="mt-4 text-3xl font-bold tracking-tight sm:text-5xl">
-        Shopping without
-        <span class="text-blue-400">the limitations.</span>
-      </h2>
+    <div class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
 
-      <p class="mt-6 max-w-xl text-base leading-8 text-zinc-400">
-        R-BUY is a request-led retail and product sourcing service
-        built around one simple idea: finding what you need shouldn't
-        be complicated.
-      </p>
+      <button type="button" class="find-card p-6 text-left"
+        data-product="Wireless headphones" data-category="Electronics">
+        <span class="mono text-[9px] tracking-widest text-blue-600">TECH FIND / 001</span>
+        <span class="find-art">🎧</span>
+        <div class="absolute bottom-6 left-6 right-6">
+          <h3 class="text-xl font-bold">Wireless headphones</h3>
+          <p class="mt-2 text-xs text-zinc-500">Find your sound.</p>
+          <p class="mt-5 text-xs font-bold text-blue-600">REQUEST THIS ↗</p>
+        </div>
+      </button>
 
-      <p class="mt-4 max-w-xl text-base leading-8 text-zinc-400">
-        You tell us what you're looking for, provide the details,
-        and we investigate available sourcing options before presenting
-        you with a quotation.
+      <button type="button" class="find-card p-6 text-left"
+        data-product="Sneakers" data-category="Fashion">
+        <span class="mono text-[9px] tracking-widest text-orange-600">STYLE FIND / 002</span>
+        <span class="find-art">👟</span>
+        <div class="absolute bottom-6 left-6 right-6">
+          <h3 class="text-xl font-bold">Sneakers</h3>
+          <p class="mt-2 text-xs text-zinc-500">The pair you've been eyeing.</p>
+          <p class="mt-5 text-xs font-bold text-blue-600">REQUEST THIS ↗</p>
+        </div>
+      </button>
+
+      <button type="button" class="find-card p-6 text-left"
+        data-product="Digital camera" data-category="Electronics">
+        <span class="mono text-[9px] tracking-widest text-blue-600">CREATIVE FIND / 003</span>
+        <span class="find-art">📷</span>
+        <div class="absolute bottom-6 left-6 right-6">
+          <h3 class="text-xl font-bold">Digital camera</h3>
+          <p class="mt-2 text-xs text-zinc-500">Capture something different.</p>
+          <p class="mt-5 text-xs font-bold text-blue-600">REQUEST THIS ↗</p>
+        </div>
+      </button>
+
+      <button type="button" class="find-card p-6 text-left"
+        data-product="Smart watch" data-category="Electronics">
+        <span class="mono text-[9px] tracking-widest text-orange-600">LIFE FIND / 004</span>
+        <span class="find-art">⌚</span>
+        <div class="absolute bottom-6 left-6 right-6">
+          <h3 class="text-xl font-bold">Smart watch</h3>
+          <p class="mt-2 text-xs text-zinc-500">A little upgrade.</p>
+          <p class="mt-5 text-xs font-bold text-blue-600">REQUEST THIS ↗</p>
+        </div>
+      </button>
+    </div>
+
+    <div class="mt-10 flex flex-col items-start justify-between gap-5 border-t border-[#d6d4cc] pt-7 sm:flex-row sm:items-center">
+      <p class="handwritten text-2xl text-orange-600">
+        Not seeing what you want? Keep going.
       </p>
 
       <a href="https://benjaminmwangi180-hub.github.io/R-BUY-ORDER/"
-         class="mt-8 inline-flex items-center gap-2 font-semibold text-blue-400 transition hover:text-blue-300">
-        Make your first request ↗
+        class="text-sm font-bold text-blue-600 hover:text-blue-800">
+        Request something completely different ↗
       </a>
-
     </div>
-
-
-    <div class="grid gap-4 sm:grid-cols-2">
-
-      <article class="card-hover rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6">
-        <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-500/10 text-2xl text-blue-400">⌕</div>
-        <h3 class="mt-5 font-semibold">Request anything</h3>
-        <p class="mt-2 text-sm leading-6 text-zinc-500">
-          Products don't need to be listed on our website.
-          Just tell us what you want.
-        </p>
-      </article>
-
-      <article class="card-hover rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6 sm:mt-10">
-        <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-500/10 text-2xl text-blue-400">↗</div>
-        <h3 class="mt-5 font-semibold">Personal sourcing</h3>
-        <p class="mt-2 text-sm leading-6 text-zinc-500">
-          We investigate sourcing options and return with
-          a tailored offer.
-        </p>
-      </article>
-
-      <article class="card-hover rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6">
-        <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-500/10 text-2xl text-blue-400">◈</div>
-        <h3 class="mt-5 font-semibold">Clear quotations</h3>
-        <p class="mt-2 text-sm leading-6 text-zinc-500">
-          Review the product price, delivery and service charges
-          before approving.
-        </p>
-      </article>
-
-      <article class="card-hover rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6 sm:mt-10">
-        <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-500/10 text-2xl text-blue-400">✓</div>
-        <h3 class="mt-5 font-semibold">Order tracking</h3>
-        <p class="mt-2 text-sm leading-6 text-zinc-500">
-          Follow your order through purchasing and fulfilment.
-        </p>
-      </article>
-
-    </div>
-
   </div>
 </section>
 
+<!-- ABOUT -->
 
-<!-- HOW IT WORKS -->
-<section id="how-it-works" class="border-y border-zinc-900 bg-zinc-950/60">
+<section id="about" class="mx-auto max-w-7xl px-5 py-28 sm:px-8">
+  <div class="grid gap-12 lg:grid-cols-2 lg:items-center">
 
-  <div class="mx-auto max-w-7xl px-5 py-24 sm:px-8">
+    <div>
+      <p class="section-kicker">03 / Who we are</p>
 
-    <div class="mx-auto max-w-2xl text-center">
-
-      <p class="text-xs font-bold uppercase tracking-[.25em] text-blue-400">
-        Simple by design
-      </p>
-
-      <h2 class="mt-4 text-3xl font-bold tracking-tight sm:text-5xl">
-        Three steps.
-        <span class="text-blue-400">One purchase.</span>
+      <h2 class="mt-5 text-4xl font-black tracking-[-.06em] sm:text-6xl">
+        Shopping should<br>
+        be about finding<br>
+        <span class="text-blue-600">what you want.</span>
       </h2>
 
-      <p class="mt-5 leading-7 text-zinc-500">
-        From submitting your request to receiving your order,
-        we've made the process straightforward.
+      <p class="mt-8 max-w-xl text-base leading-8 text-zinc-600">
+        R-BUY is a request-led retail and product sourcing service
+        built around a simple idea: finding what you need shouldn't
+        be complicated.
       </p>
 
+      <p class="mt-4 max-w-xl text-base leading-8 text-zinc-600">
+        Instead of limiting you to a catalogue, we let you tell us
+        what you're looking for. We investigate available sourcing
+        options and present you with an offer to review.
+      </p>
+
+      <p class="handwritten mt-7 text-2xl text-blue-600">
+        Less searching. More finding.
+      </p>
     </div>
 
+    <div class="quote-card p-7 sm:p-10">
+      <div class="absolute right-7 top-7 text-5xl text-blue-200">"</div>
 
-    <div class="mt-16 grid gap-6 md:grid-cols-3">
+      <p class="mono text-[10px] tracking-widest text-blue-600">
+        THE IDEA BEHIND R-BUY
+      </p>
 
-      <article class="card-hover rounded-2xl border border-zinc-800 bg-zinc-900/50 p-7">
-        <span class="text-4xl font-black text-blue-500/40">01</span>
-        <h3 class="mt-6 text-xl font-semibold">Tell us what you need</h3>
-        <p class="mt-3 text-sm leading-7 text-zinc-500">
-          Submit your product request, description, budget
-          and delivery details.
-        </p>
+      <h3 class="mt-10 text-3xl font-black leading-tight tracking-tight sm:text-4xl">
+        You don't need to know where to find it.
+        <span class="text-blue-600">That's our job.</span>
+      </h3>
+
+      <div class="mt-12 flex items-center justify-between border-t border-[#deddd6] pt-6">
+        <div>
+          <p class="font-bold">R-BUY</p>
+          <p class="mt-1 text-xs text-zinc-500">Retail Buy</p>
+        </div>
+        <span class="mono text-[9px] tracking-widest text-zinc-500">
+          YOU CAN BUY ANYTHING.
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+
+<section id="how-it-works" class="process-section border-y">
+  <div class="mx-auto max-w-7xl px-5 py-24 sm:px-8">
+
+    <p class="section-kicker">04 / The process</p>
+
+    <div class="mt-5 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
+      <h2 class="text-4xl font-black tracking-[-.06em] sm:text-6xl">
+        From request<br>
+        <span class="text-blue-600">to doorstep.</span>
+      </h2>
+
+      <p class="max-w-sm text-sm leading-7 text-zinc-600">
+        Five simple stages. You tell us what you need.
+        We handle the sourcing journey.
+      </p>
+    </div>
+
+    <div class="mt-16 grid gap-10 sm:grid-cols-2 lg:grid-cols-5">
+
+      <article>
+        <p class="step-number">01</p>
+        <h3 class="mt-5 text-lg font-bold">You request</h3>
+        <p class="mt-3 text-sm leading-7 text-zinc-600">Describe your product, budget and delivery details.</p>
       </article>
 
-      <article class="card-hover rounded-2xl border border-zinc-800 bg-zinc-900/50 p-7">
-        <span class="text-4xl font-black text-blue-500/40">02</span>
-        <h3 class="mt-6 text-xl font-semibold">Review your quotation</h3>
-        <p class="mt-3 text-sm leading-7 text-zinc-500">
-          We investigate sourcing options and send you an offer
-          showing the relevant costs.
-        </p>
+      <article>
+        <p class="step-number">02</p>
+        <h3 class="mt-5 text-lg font-bold">We investigate</h3>
+        <p class="mt-3 text-sm leading-7 text-zinc-600">We look for suitable sourcing options.</p>
       </article>
 
-      <article class="card-hover rounded-2xl border border-zinc-800 bg-zinc-900/50 p-7">
-        <span class="text-4xl font-black text-blue-500/40">03</span>
-        <h3 class="mt-6 text-xl font-semibold">Approve and receive</h3>
-        <p class="mt-3 text-sm leading-7 text-zinc-500">
-          Approve your offer, complete payment and let us handle
-          the purchasing and delivery process.
-        </p>
+      <article>
+        <p class="step-number">03</p>
+        <h3 class="mt-5 text-lg font-bold">You approve</h3>
+        <p class="mt-3 text-sm leading-7 text-zinc-600">Review your quotation and decide whether to proceed.</p>
       </article>
 
+      <article>
+        <p class="step-number">04</p>
+        <h3 class="mt-5 text-lg font-bold">We purchase</h3>
+        <p class="mt-3 text-sm leading-7 text-zinc-600">After payment confirmation, we arrange procurement.</p>
+      </article>
+
+      <article>
+        <p class="step-number">05</p>
+        <h3 class="mt-5 text-lg font-bold">You receive</h3>
+        <p class="mt-3 text-sm leading-7 text-zinc-600">Your order moves through delivery to you.</p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+
+<section id="faq" class="mx-auto max-w-4xl px-5 py-24 sm:px-8">
+
+  <div class="text-center">
+    <p class="section-kicker">05 / Good questions</p>
+    <h2 class="mt-5 text-4xl font-black tracking-tight sm:text-5xl">
+      Before you ask...
+    </h2>
+    <p class="mt-4 text-sm text-zinc-500">A few things worth knowing.</p>
+  </div>
+
+  <div class="mt-12">
+
+    <div class="faq-item">
+      <button class="faq-question" type="button">
+        <span>Can I request something that isn't listed?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        Absolutely. R-BUY is request-led, so you can submit
+        a product request even if it isn't shown anywhere on this website.
+        We will investigate whether it can be sourced.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" type="button">
+        <span>How does the quotation process work?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        After you submit your request, we investigate sourcing options
+        and prepare an offer. Your quotation shows the relevant product,
+        delivery and service costs for you to review.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" type="button">
+        <span>When do I make payment?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        You first receive a quotation. Once you approve the offer,
+        you can proceed with the payment instructions provided.
+        Procurement follows payment confirmation.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" type="button">
+        <span>Can I specify my own budget?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        Yes. You can provide a budget when submitting your request.
+        It helps us understand what options may be suitable.
+        A budget is a guide, not a guarantee that a product can
+        be sourced at that price.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" type="button">
+        <span>Can I track my order?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        Your order progresses through different fulfilment stages.
+        R-BUY can provide updates as your request moves through
+        the process.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" type="button">
+        <span>Do I have to choose from these categories?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        No. The categories are just a starting point.
+        You can submit a request for other products too.
+      </div>
     </div>
 
   </div>
 </section>
 
-
 <!-- FINAL CTA -->
-<section class="mx-auto max-w-7xl px-5 py-24 sm:px-8">
 
-  <div class="relative overflow-hidden rounded-3xl border border-zinc-800 bg-gradient-to-br from-blue-950/50 via-zinc-900 to-zinc-950 p-8 sm:p-14">
+<section class="px-5 pb-24 sm:px-8">
+  <div class="cta-card relative mx-auto max-w-7xl overflow-hidden px-7 py-16 sm:px-14 sm:py-20">
 
-    <div class="pointer-events-none absolute -right-20 -top-24 h-72 w-72 rounded-full bg-blue-500/10 blur-3xl"></div>
+    <div class="pointer-events-none absolute -right-20 -top-24 h-80 w-80 rounded-full bg-blue-500/10 blur-[100px]"></div>
 
-    <div class="relative flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between">
+    <div class="relative flex flex-col justify-between gap-10 lg:flex-row lg:items-end">
 
       <div>
-        <p class="text-xs font-bold uppercase tracking-[.25em] text-blue-400">
-          Your next purchase starts here
-        </p>
+        <p class="section-kicker">06 / Your next move</p>
 
-        <h2 class="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
-          Have something in mind?
+        <h2 class="mt-6 text-5xl font-black leading-[.95] tracking-[-.07em] sm:text-7xl">
+          Still looking?<br>
+          <span class="text-blue-600">Let's find it.</span>
         </h2>
 
-        <p class="mt-4 max-w-xl leading-7 text-zinc-400">
-          Send us your request. We'll take care of the investigation
-          and sourcing process.
+        <p class="mt-6 max-w-lg text-sm leading-7 text-zinc-600 sm:text-base">
+          Whatever you've got in mind, start with a request.
+          We'll take it from there.
+        </p>
+
+        <p class="handwritten mt-5 text-2xl text-orange-600">
+          Your next great find could be one request away.
         </p>
       </div>
 
       <a href="https://benjaminmwangi180-hub.github.io/R-BUY-ORDER/"
-         class="inline-flex shrink-0 items-center justify-center gap-3 rounded-xl bg-blue-500 px-7 py-4 font-semibold text-white transition hover:bg-blue-400">
-        Start your order ↗
+        class="primary-button inline-flex shrink-0 items-center justify-center gap-4 px-8 py-5 font-bold">
+        START YOUR ORDER
+        <span class="text-xl">↗</span>
       </a>
-
     </div>
   </div>
 </section>
 
 </main>
 
-
 <!-- FOOTER -->
-<footer class="border-t border-zinc-900 bg-[#070709]">
 
-  <div class="mx-auto flex max-w-7xl flex-col gap-8 px-5 py-10 sm:px-8 md:flex-row md:items-center md:justify-between">
+<footer class="footer-section border-t">
+  <div class="mx-auto max-w-7xl px-5 py-12 sm:px-8">
 
-    <div>
-      <a href="index.html" class="text-2xl font-black tracking-tight">
-        R<span class="text-blue-400">-</span>BUY<span class="text-blue-400">.</span>
-      </a>
+    <div class="grid gap-10 md:grid-cols-3">
 
-      <p class="mt-2 text-sm text-zinc-500">
-        You can buy anything.
-      </p>
+      <div>
+        <a href="#home" class="text-3xl font-black tracking-tight">
+          R<span class="text-blue-600">-</span>BUY<span class="text-blue-600">.</span>
+        </a>
+
+        <p class="mt-3 text-sm text-zinc-600">You can buy anything.</p>
+
+        <p class="handwritten mt-4 text-xl text-blue-600">
+          Good things are worth finding.
+        </p>
+      </div>
+
+      <div>
+        <p class="mono text-[10px] tracking-widest text-zinc-500">EXPLORE</p>
+
+        <div class="mt-5 flex flex-col gap-3 text-sm">
+          <a href="#categories" class="footer-link">Categories</a>
+          <a href="#finds" class="footer-link">The Finds Wall</a>
+          <a href="#about" class="footer-link">About R-BUY</a>
+          <a href="#how-it-works" class="footer-link">How it works</a>
+          <a href="#faq" class="footer-link">FAQs</a>
+        </div>
+      </div>
+
+      <div>
+        <p class="mono text-[10px] tracking-widest text-zinc-500">GET STARTED</p>
+
+        <div class="mt-5 flex flex-col gap-3 text-sm">
+          <a href="https://benjaminmwangi180-hub.github.io/R-BUY-ORDER/"
+            class="footer-link">Place an order ↗</a>
+
+          <p class="leading-6 text-zinc-500">
+            Have something in mind? Start by telling us what you need.
+          </p>
+        </div>
+      </div>
     </div>
 
-    <div class="flex flex-wrap gap-6 text-sm text-zinc-500">
-      <a href="#home" class="transition hover:text-white">Home</a>
-      <a href="#categories" class="transition hover:text-white">Categories</a>
-      <a href="#about" class="transition hover:text-white">About</a>
-      <a href="#how-it-works" class="transition hover:text-white">How it works</a>
-      <a href="https://benjaminmwangi180-hub.github.io/R-BUY-ORDER/"
-         class="transition hover:text-white">Place an order</a>
+    <div class="mt-12 flex flex-col justify-between gap-4 border-t border-[#d6d4cc] pt-7 text-xs text-zinc-500 sm:flex-row">
+      <p>© <span id="year"></span> R-BUY. All rights reserved.</p>
+      <p class="mono tracking-widest">RETAIL WITHOUT LIMITS.</p>
     </div>
-
-    <p class="text-xs text-zinc-600">
-      © <span id="year"></span> R-BUY. All rights reserved.
-    </p>
-
   </div>
 </footer>
 
+<!-- THE SHOPPING CART: FIXED ACROSS THE ENTIRE PAGE -->
+
+<div class="cart-track" aria-hidden="true">
+  <div class="cart-road"></div>
+
+  <div class="moving-cart">
+    <span class="cart-brand mono">R-BUY</span>
+
+    <svg class="cart-svg" width="65" height="52" viewBox="0 0 65 52" fill="none">
+      <path d="M3 5H10L17 34H49L58 13H14"
+        stroke="#2563EB" stroke-width="3"
+        stroke-linecap="round" stroke-linejoin="round"/>
+
+      <path d="M19 19H54M22 26H51"
+        stroke="#2563EB" stroke-width="2"
+        stroke-linecap="round"/>
+
+      <circle class="cart-wheel" cx="22" cy="43" r="4" fill="#2563EB"/>
+      <circle class="cart-wheel" cx="46" cy="43" r="4" fill="#2563EB"/>
+    </svg>
+  </div>
+</div>
+
+<!-- JAVASCRIPT -->
 
 <script>
-
   // COPYRIGHT YEAR
+
   document.getElementById("year").textContent =
     new Date().getFullYear();
 
 
   // ORDER PAGE
+
   const orderPage =
     "https://benjaminmwangi180-hub.github.io/R-BUY-ORDER/";
 
 
-  // SEARCH
-  const searchForm = document.getElementById("searchForm");
-  const searchInput = document.getElementById("search");
-  const searchError = document.getElementById("searchError");
+  // SEARCH ELEMENTS
 
-  let selectedCategory = "";
+  const searchForm =
+    document.getElementById("searchForm");
+
+  const searchInput =
+    document.getElementById("search");
+
+  const searchError =
+    document.getElementById("searchError");
 
 
-  // CATEGORY SELECTION
+  // CATEGORY ELEMENTS
+
   const categoryCards =
     document.querySelectorAll(".category-card");
 
@@ -641,11 +1187,15 @@
   const clearCategory =
     document.getElementById("clearCategory");
 
+  let selectedCategory = "";
+
+
+  // SELECT CATEGORY
 
   categoryCards.forEach(card => {
+    card.setAttribute("aria-pressed", "false");
 
     card.addEventListener("click", function() {
-
       selectedCategory = this.dataset.category;
 
       categoryCards.forEach(item => {
@@ -657,7 +1207,7 @@
       this.setAttribute("aria-pressed", "true");
 
       categoryMessage.textContent =
-        "Selected category: " + selectedCategory;
+        "Selected: " + selectedCategory;
 
       clearCategory.classList.remove("hidden");
 
@@ -671,15 +1221,13 @@
       });
 
       searchInput.focus();
-
     });
-
   });
 
 
   // CLEAR CATEGORY
-  clearCategory.addEventListener("click", function() {
 
+  clearCategory.addEventListener("click", function() {
     selectedCategory = "";
 
     categoryCards.forEach(item => {
@@ -692,54 +1240,100 @@
 
     clearCategory.classList.add("hidden");
 
-    searchInput.placeholder =
-      "What are you looking for?";
-
+    searchInput.placeholder = "I'm looking for...";
   });
 
 
   // SEARCH AND REDIRECT
-  searchForm.addEventListener("submit", function(event) {
 
+  searchForm.addEventListener("submit", function(event) {
     event.preventDefault();
 
     const product = searchInput.value.trim();
 
     if (!product && !selectedCategory) {
-
       searchError.classList.remove("hidden");
       searchInput.focus();
-
       return;
-
     }
 
     searchError.classList.add("hidden");
 
     const params = new URLSearchParams();
 
-    if (product) {
-      params.set("product", product);
-    }
-
-    if (selectedCategory) {
-      params.set("category", selectedCategory);
-    }
+    if (product) params.set("product", product);
+    if (selectedCategory) params.set("category", selectedCategory);
 
     window.location.href =
       orderPage + "?" + params.toString();
-
   });
 
 
   searchInput.addEventListener("input", function() {
-
     if (searchInput.value.trim()) {
       searchError.classList.add("hidden");
     }
-
   });
 
+
+  // FINDS WALL PRODUCT SELECTION
+
+  document.querySelectorAll(".find-card").forEach(card => {
+    card.addEventListener("click", function() {
+      const params = new URLSearchParams();
+
+      params.set("product", this.dataset.product);
+      params.set("category", this.dataset.category);
+
+      window.location.href =
+        orderPage + "?" + params.toString();
+    });
+  });
+
+
+  // FAQ ACCORDION
+
+  document.querySelectorAll(".faq-item").forEach(item => {
+    const button = item.querySelector(".faq-question");
+
+    button.addEventListener("click", function() {
+      const wasOpen = item.classList.contains("open");
+
+      document.querySelectorAll(".faq-item").forEach(other => {
+        other.classList.remove("open");
+      });
+
+      if (!wasOpen) {
+        item.classList.add("open");
+      }
+    });
+  });
+
+
+  // SCROLL REVEAL
+
+  const revealElements = document.querySelectorAll(
+    "#categories, #finds, #about, #how-it-works, #faq"
+  );
+
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.08 }
+    );
+
+    revealElements.forEach(element => {
+      element.classList.add("reveal");
+      observer.observe(element);
+    });
+  }
 </script>
 
 </body>
