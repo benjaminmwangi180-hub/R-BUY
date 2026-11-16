@@ -4,160 +4,742 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="R-buy — You can buy anything. Tell us what you need and we'll source it for you.">
-  <title>R-buy | You can buy anything</title>
+
+  <meta name="description" content="R-BUY — You can buy anything. Tell us what you need and we'll source it for you.">
+  <meta name="theme-color" content="#09090b">
+
+  <title>R-BUY | You Can Buy Anything</title>
+
   <script src="https://cdn.tailwindcss.com"></script>
+
   <style>
     html { scroll-behavior: smooth; }
+
     body { background: #09090b; }
+
+    .hero-glow {
+      background: radial-gradient(
+        ellipse at 50% 40%,
+        rgba(37,99,235,.17),
+        transparent 60%
+      );
+    }
+
+    .grid-bg {
+      background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size: 45px 45px;
+      mask-image: linear-gradient(to bottom, black, transparent 90%);
+    }
+
     .glow {
       box-shadow: 0 0 70px rgba(59,130,246,.10);
+    }
+
+    .card-hover {
+      transition: transform .25s ease, border-color .25s ease,
+                  background .25s ease;
+    }
+
+    .card-hover:hover {
+      transform: translateY(-5px);
+      border-color: rgba(59,130,246,.55);
+      background: rgba(24,24,27,.95);
+    }
+
+    .category-card.selected {
+      border-color: #3b82f6;
+      background: rgba(37,99,235,.12);
+      box-shadow: 0 0 25px rgba(37,99,235,.10);
+    }
+
+    .cart-track {
+      position: relative;
+      width: min(500px, 85vw);
+      height: 85px;
+      margin: 35px auto 0;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(63,63,70,.7);
+    }
+
+    .moving-cart {
+      position: absolute;
+      top: 10px;
+      left: -65px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      animation: cartMove 7s linear infinite;
+    }
+
+    .cart-glow {
+      filter: drop-shadow(0 0 12px rgba(59,130,246,.65));
+    }
+
+    .cart-wheel {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: wheelSpin .8s linear infinite;
+    }
+
+    .cart-trail {
+      position: absolute;
+      left: 0;
+      top: 35px;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(59,130,246,.4),
+        transparent
+      );
+    }
+
+    @keyframes cartMove {
+      0% { left: -65px; }
+      100% { left: calc(100% + 65px); }
+    }
+
+    @keyframes wheelSpin {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in {
+      animation: fadeIn .8s ease both;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+      }
     }
   </style>
 </head>
 
-<body class="text-zinc-100 min-h-screen">
+<body class="min-h-screen text-zinc-100">
 
-<header class="max-w-7xl mx-auto px-5 sm:px-8 py-6 flex items-center justify-between">
-  <a href="index.html" class="font-black tracking-tight text-2xl">
-    R<span class="text-blue-400">-</span>buy<span class="text-blue-400">.</span>
-  </a>
-  <a href="#about" class="text-sm text-zinc-400 hover:text-white transition">
-    
-  </a>
-</header>
+<!-- HEADER -->
+<header class="sticky top-0 z-50 border-b border-zinc-900 bg-[#09090b]/90 backdrop-blur-xl">
 
-<main>
+  <nav class="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 sm:px-8">
 
-<!-- HERO SECTION -->
-<section class="min-h-[68vh] flex flex-col justify-center items-center text-center px-5 pb-14">
-
-  <div class="inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/70 px-3 py-1 text-xs text-zinc-400 mb-7">
-    <span class="h-2 w-2 rounded-full bg-blue-400"></span>
-    RETAIL BUY · YOUR PERSONAL SOURCING PARTNER
-  </div>
-
-  <h1 class="text-5xl sm:text-7xl lg:text-8xl font-black tracking-tight">
-    You can buy<br>
-    <span class="text-blue-400">anything.</span>
-  </h1>
-
-  <p class="mt-6 max-w-xl text-zinc-400 sm:text-lg">
-    Tell us what you're looking for. We'll investigate, find a suitable offer, and help you get it.
-  </p>
-
-  <!-- SEARCH BAR -->
-  <form action="" class="mt-9 w-full max-w-2xl">
-    <label for="search" class="sr-only">What are you looking for?</label>
-
-    <div class="flex items-center gap-3 rounded-2xl border border-zinc-800 bg-zinc-900 p-2 focus-within:border-blue-500 transition glow">
-
-      <svg class="ml-3 h-5 w-5 shrink-0 text-zinc-500"
-        viewBox="0 0 24 24" fill="none"
-        stroke="currentColor" stroke-width="2">
-        <circle cx="11" cy="11" r="7"/>
-        <path d="m20 20-4-4"/>
-      </svg>
-
-      <input
-        id="search"
-        name="product"
-        class="w-full bg-transparent py-3 outline-none placeholder:text-zinc-600"
-        placeholder="Search or describe anything..."
-        autocomplete="off">
-  
-    <a href="https://benjaminmwangi180-hub.github.io/R-BUY-ORDER/"  
-       class="shrink-0 rounded-xl bg-blue-500 px-5 py-3 text-sm font-semibold text-white hover:bg-blue-400 transition">
-        Start Your Order
-         
+    <a href="index.html" class="text-2xl font-black tracking-tight">
+      R<span class="text-blue-400">-</span>BUY<span class="text-blue-400">.</span>
     </a>
-      
-    </div>
-  </form>
 
-  <a href="https://benjaminmwangi180-hub.github.io/R-BUY-ORDER/"
-    class="mt-4 inline-flex items-center gap-2 rounded-xl border border-zinc-700 px-6 py-3 text-sm font-semibold hover:border-zinc-500 hover:bg-zinc-900 transition">
-    Place an order ↗ 
-  </a>
-
-  <p class="mt-4 text-xs text-zinc-600">
-    Can't find it listed? Request it anyway.
-  </p>
-
-</section>
-
-<!-- ABOUT SECTION -->
-<section id="about" class="mx-auto max-w-5xl px-5 sm:px-8 pb-20">
-
-  <div class="grid gap-8 md:grid-cols-[1.1fr_.9fr] md:items-center">
-
-    <div>
-      <p class="text-xs font-bold uppercase tracking-[.22em] text-blue-400">
-        A little about us
-      </p>
-
-      <h2 class="mt-3 text-3xl sm:text-4xl font-bold tracking-tight">
-        Shopping, without the limitations.
-      </h2>
-
-      <p class="mt-4 leading-7 text-zinc-400">
-        R-buy is a request-led retail and product sourcing service.
-        You tell us what you need, share the details, and we personally
-        investigate sourcing options before sending you a product offer to review. Any and everything available for purchase is allowed.
-      </p>
-    </div>
-
-    <div class="grid gap-3 sm:grid-cols-2">
-
-      <article class="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-5">
-        <div class="text-xl">⌕</div>
-        <h3 class="mt-3 font-semibold">Your request, your way</h3>
-        <p class="mt-2 text-sm leading-6 text-zinc-500">
-          Request products that aren't already listed on the site.
-        </p>
-      </article>
-
-      <article class="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-5">
-        <div class="text-xl">↗</div>
-        <h3 class="mt-3 font-semibold">Sourcing made personal</h3>
-        <p class="mt-2 text-sm leading-6 text-zinc-500">
-          We review your request and return with a tailored offer.
-        </p>
-      </article>
-
-    </div>
-  </div>
-
-  <!-- CALL TO ACTION -->
-  <div class="mt-10 rounded-2xl border border-zinc-800 bg-gradient-to-r from-zinc-900 to-zinc-950 p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
-
-    <div>
-      <h3 class="text-xl font-semibold">Have something in mind?</h3>
-      <p class="mt-1 text-zinc-500">
-        Send us the details. We'll take it from there.
-      </p>
+    <div class="hidden items-center gap-8 text-sm text-zinc-400 md:flex">
+      <a href="#home" class="transition hover:text-white">Home</a>
+      <a href="#categories" class="transition hover:text-white">Categories</a>
+      <a href="#about" class="transition hover:text-white">About</a>
+      <a href="#how-it-works" class="transition hover:text-white">How it works</a>
     </div>
 
     <a href="https://benjaminmwangi180-hub.github.io/R-BUY-ORDER/"
-      class="inline-flex justify-center rounded-xl bg-white px-5 py-3 font-semibold text-zinc-950 hover:bg-zinc-200 transition">
-      Start a request →
+       class="rounded-xl bg-blue-500 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-400">
+      Start an order
     </a>
+
+  </nav>
+</header>
+
+
+<main>
+
+<!-- HERO -->
+<section id="home" class="relative overflow-hidden">
+
+  <div class="hero-glow grid-bg absolute inset-0 pointer-events-none"></div>
+
+  <div class="relative mx-auto flex min-h-[640px] max-w-7xl flex-col items-center justify-center px-5 pb-16 pt-24 text-center sm:px-8">
+
+    <div class="fade-in mb-8 inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/80 px-4 py-2 text-xs text-zinc-400">
+      <span class="h-2 w-2 animate-pulse rounded-full bg-blue-400"></span>
+      RETAIL BUY · YOUR PERSONAL SOURCING PARTNER
+    </div>
+
+    <h1 class="fade-in max-w-5xl text-5xl font-black leading-[1.05] tracking-tight sm:text-7xl lg:text-8xl">
+      You can buy
+      <span class="block text-blue-400">anything.</span>
+    </h1>
+
+    <p class="mt-7 max-w-2xl text-base leading-7 text-zinc-400 sm:text-lg">
+      Found something you want? Tell us what you're looking for.
+      We'll investigate, source it and bring you an offer worth considering.
+    </p>
+
+
+    <!-- SEARCH -->
+    <form id="searchForm" class="mt-10 w-full max-w-2xl">
+
+      <div class="glow flex items-center gap-3 rounded-2xl border border-zinc-800 bg-zinc-900/90 p-2 transition focus-within:border-blue-500">
+
+        <svg class="ml-3 h-5 w-5 shrink-0 text-zinc-500"
+             viewBox="0 0 24 24"
+             fill="none"
+             stroke="currentColor"
+             stroke-width="2">
+          <circle cx="11" cy="11" r="7"/>
+          <path d="m20 20-4-4"/>
+        </svg>
+
+        <input
+          id="search"
+          type="text"
+          class="w-full min-w-0 bg-transparent py-3 text-sm text-white placeholder:text-zinc-600 sm:text-base"
+          placeholder="What are you looking for?"
+          autocomplete="off"
+        >
+
+        <button type="submit"
+                class="shrink-0 rounded-xl bg-blue-500 px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-400">
+          Find it <span class="ml-1">↗</span>
+        </button>
+
+      </div>
+
+      <p id="searchError" class="mt-3 hidden text-sm text-red-400">
+        Please enter a product or select a category.
+      </p>
+
+    </form>
+
+
+    <a href="https://benjaminmwangi180-hub.github.io/R-BUY-ORDER/"
+       class="mt-5 inline-flex items-center gap-2 rounded-xl border border-zinc-700 px-6 py-3 text-sm font-semibold text-zinc-300 transition hover:border-zinc-500 hover:bg-zinc-900 hover:text-white">
+      Place a custom order →
+    </a>
+
+    <p class="mt-4 text-xs text-zinc-600">
+      Can't find it listed? Request it anyway.
+    </p>
+
+
+    <!-- ANIMATED SHOPPING CART -->
+    <div class="cart-track" aria-hidden="true">
+
+      <div class="cart-trail"></div>
+
+      <div class="moving-cart cart-glow">
+
+        <span class="text-xs font-semibold tracking-widest text-blue-400">
+          R-BUY
+        </span>
+
+        <svg width="65" height="55" viewBox="0 0 65 55" fill="none">
+
+          <path d="M3 7H10L17 35H49L58 14H14"
+                stroke="#60A5FA"
+                stroke-width="3"
+                stroke-linecap="round"
+                stroke-linejoin="round"/>
+
+          <path d="M19 19H54M22 26H51"
+                stroke="#3B82F6"
+                stroke-width="2"
+                stroke-linecap="round"/>
+
+          <circle class="cart-wheel" cx="22" cy="44" r="4"
+                  fill="#60A5FA"/>
+
+          <circle class="cart-wheel" cx="46" cy="44" r="4"
+                  fill="#60A5FA"/>
+
+          <path d="M23 12L26 3H42L46 12"
+                stroke="#60A5FA"
+                stroke-width="2"
+                stroke-linecap="round"/>
+
+        </svg>
+
+      </div>
+
+    </div>
+
+    <p class="mt-1 text-[10px] uppercase tracking-[.25em] text-zinc-700">
+      Your shopping journey starts here
+    </p>
+
+  </div>
+</section>
+
+
+<!-- QUICK VALUE STRIP -->
+<section class="border-y border-zinc-900 bg-zinc-950/70">
+
+  <div class="mx-auto grid max-w-6xl gap-6 px-5 py-8 text-center sm:grid-cols-3 sm:px-8">
+
+    <div>
+      <p class="font-semibold text-white">Your request</p>
+      <p class="mt-1 text-sm text-zinc-500">Tell us what you need.</p>
+    </div>
+
+    <div>
+      <p class="font-semibold text-white">Our investigation</p>
+      <p class="mt-1 text-sm text-zinc-500">We find suitable sourcing options.</p>
+    </div>
+
+    <div>
+      <p class="font-semibold text-white">Your purchase</p>
+      <p class="mt-1 text-sm text-zinc-500">Review, approve and receive.</p>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- CATEGORIES -->
+<section id="categories" class="mx-auto max-w-7xl px-5 py-24 sm:px-8">
+
+  <div class="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
+
+    <div>
+      <p class="text-xs font-bold uppercase tracking-[.25em] text-blue-400">
+        Explore possibilities
+      </p>
+
+      <h2 class="mt-4 text-3xl font-bold tracking-tight sm:text-5xl">
+        Browse by <span class="text-blue-400">category.</span>
+      </h2>
+
+      <p class="mt-4 max-w-xl text-sm leading-7 text-zinc-500 sm:text-base">
+        From everyday essentials to specialised products, explore
+        some of the things we can help you source.
+      </p>
+    </div>
+
+    <p class="text-xs text-zinc-600">
+      Select a category to get started
+    </p>
 
   </div>
 
+
+  <div class="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+
+    <button type="button" data-category="Electronics"
+      class="category-card card-hover rounded-2xl border border-zinc-800 bg-zinc-900/50 p-5 text-left">
+      <span class="text-3xl">🎧</span>
+      <h3 class="mt-5 font-semibold">Electronics</h3>
+      <p class="mt-2 text-xs leading-5 text-zinc-500">Phones, computers, gadgets and more.</p>
+    </button>
+
+    <button type="button" data-category="Fashion"
+      class="category-card card-hover rounded-2xl border border-zinc-800 bg-zinc-900/50 p-5 text-left">
+      <span class="text-3xl">👟</span>
+      <h3 class="mt-5 font-semibold">Fashion</h3>
+      <p class="mt-2 text-xs leading-5 text-zinc-500">Clothing, shoes, bags and accessories.</p>
+    </button>
+
+    <button type="button" data-category="Home & Living"
+      class="category-card card-hover rounded-2xl border border-zinc-800 bg-zinc-900/50 p-5 text-left">
+      <span class="text-3xl">🛋️</span>
+      <h3 class="mt-5 font-semibold">Home & Living</h3>
+      <p class="mt-2 text-xs leading-5 text-zinc-500">Furniture, appliances and home essentials.</p>
+    </button>
+
+    <button type="button" data-category="Beauty & Personal Care"
+      class="category-card card-hover rounded-2xl border border-zinc-800 bg-zinc-900/50 p-5 text-left">
+      <span class="text-3xl">✨</span>
+      <h3 class="mt-5 font-semibold">Beauty & Care</h3>
+      <p class="mt-2 text-xs leading-5 text-zinc-500">Skincare, cosmetics and personal care.</p>
+    </button>
+
+    <button type="button" data-category="Sports & Outdoors"
+      class="category-card card-hover rounded-2xl border border-zinc-800 bg-zinc-900/50 p-5 text-left">
+      <span class="text-3xl">⚽</span>
+      <h3 class="mt-5 font-semibold">Sports & Outdoors</h3>
+      <p class="mt-2 text-xs leading-5 text-zinc-500">Fitness, sports and outdoor equipment.</p>
+    </button>
+
+    <button type="button" data-category="Automotive"
+      class="category-card card-hover rounded-2xl border border-zinc-800 bg-zinc-900/50 p-5 text-left">
+      <span class="text-3xl">🚘</span>
+      <h3 class="mt-5 font-semibold">Automotive</h3>
+      <p class="mt-2 text-xs leading-5 text-zinc-500">Car accessories, parts and essentials.</p>
+    </button>
+
+    <button type="button" data-category="Office & Technology"
+      class="category-card card-hover rounded-2xl border border-zinc-800 bg-zinc-900/50 p-5 text-left">
+      <span class="text-3xl">💻</span>
+      <h3 class="mt-5 font-semibold">Office & Tech</h3>
+      <p class="mt-2 text-xs leading-5 text-zinc-500">Office equipment, supplies and technology.</p>
+    </button>
+
+    <button type="button" data-category="Other"
+      class="category-card card-hover rounded-2xl border border-zinc-800 bg-zinc-900/50 p-5 text-left">
+      <span class="text-3xl">📦</span>
+      <h3 class="mt-5 font-semibold">Other</h3>
+      <p class="mt-2 text-xs leading-5 text-zinc-500">Something different? Request it anyway.</p>
+    </button>
+
+  </div>
+
+
+  <div class="mt-7 flex flex-col items-center justify-between gap-4 rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5 sm:flex-row">
+
+    <div>
+      <p id="categoryMessage" class="text-sm font-semibold text-white">
+        Not sure where your product belongs?
+      </p>
+      <p class="mt-1 text-xs text-zinc-500">
+        You can still request anything, even if it isn't listed here.
+      </p>
+    </div>
+
+    <button id="clearCategory" type="button"
+      class="hidden text-sm font-semibold text-blue-400 hover:text-blue-300">
+      Clear selection
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- ABOUT -->
+<section id="about" class="border-t border-zinc-900">
+
+  <div class="mx-auto grid max-w-7xl gap-12 px-5 py-24 sm:px-8 md:grid-cols-2 md:items-center">
+
+    <div>
+
+      <p class="text-xs font-bold uppercase tracking-[.25em] text-blue-400">
+        A little about us
+      </p>
+
+      <h2 class="mt-4 text-3xl font-bold tracking-tight sm:text-5xl">
+        Shopping without
+        <span class="text-blue-400">the limitations.</span>
+      </h2>
+
+      <p class="mt-6 max-w-xl text-base leading-8 text-zinc-400">
+        R-BUY is a request-led retail and product sourcing service
+        built around one simple idea: finding what you need shouldn't
+        be complicated.
+      </p>
+
+      <p class="mt-4 max-w-xl text-base leading-8 text-zinc-400">
+        You tell us what you're looking for, provide the details,
+        and we investigate available sourcing options before presenting
+        you with a quotation.
+      </p>
+
+      <a href="https://benjaminmwangi180-hub.github.io/R-BUY-ORDER/"
+         class="mt-8 inline-flex items-center gap-2 font-semibold text-blue-400 transition hover:text-blue-300">
+        Make your first request ↗
+      </a>
+
+    </div>
+
+
+    <div class="grid gap-4 sm:grid-cols-2">
+
+      <article class="card-hover rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6">
+        <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-500/10 text-2xl text-blue-400">⌕</div>
+        <h3 class="mt-5 font-semibold">Request anything</h3>
+        <p class="mt-2 text-sm leading-6 text-zinc-500">
+          Products don't need to be listed on our website.
+          Just tell us what you want.
+        </p>
+      </article>
+
+      <article class="card-hover rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6 sm:mt-10">
+        <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-500/10 text-2xl text-blue-400">↗</div>
+        <h3 class="mt-5 font-semibold">Personal sourcing</h3>
+        <p class="mt-2 text-sm leading-6 text-zinc-500">
+          We investigate sourcing options and return with
+          a tailored offer.
+        </p>
+      </article>
+
+      <article class="card-hover rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6">
+        <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-500/10 text-2xl text-blue-400">◈</div>
+        <h3 class="mt-5 font-semibold">Clear quotations</h3>
+        <p class="mt-2 text-sm leading-6 text-zinc-500">
+          Review the product price, delivery and service charges
+          before approving.
+        </p>
+      </article>
+
+      <article class="card-hover rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6 sm:mt-10">
+        <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-500/10 text-2xl text-blue-400">✓</div>
+        <h3 class="mt-5 font-semibold">Order tracking</h3>
+        <p class="mt-2 text-sm leading-6 text-zinc-500">
+          Follow your order through purchasing and fulfilment.
+        </p>
+      </article>
+
+    </div>
+
+  </div>
+</section>
+
+
+<!-- HOW IT WORKS -->
+<section id="how-it-works" class="border-y border-zinc-900 bg-zinc-950/60">
+
+  <div class="mx-auto max-w-7xl px-5 py-24 sm:px-8">
+
+    <div class="mx-auto max-w-2xl text-center">
+
+      <p class="text-xs font-bold uppercase tracking-[.25em] text-blue-400">
+        Simple by design
+      </p>
+
+      <h2 class="mt-4 text-3xl font-bold tracking-tight sm:text-5xl">
+        Three steps.
+        <span class="text-blue-400">One purchase.</span>
+      </h2>
+
+      <p class="mt-5 leading-7 text-zinc-500">
+        From submitting your request to receiving your order,
+        we've made the process straightforward.
+      </p>
+
+    </div>
+
+
+    <div class="mt-16 grid gap-6 md:grid-cols-3">
+
+      <article class="card-hover rounded-2xl border border-zinc-800 bg-zinc-900/50 p-7">
+        <span class="text-4xl font-black text-blue-500/40">01</span>
+        <h3 class="mt-6 text-xl font-semibold">Tell us what you need</h3>
+        <p class="mt-3 text-sm leading-7 text-zinc-500">
+          Submit your product request, description, budget
+          and delivery details.
+        </p>
+      </article>
+
+      <article class="card-hover rounded-2xl border border-zinc-800 bg-zinc-900/50 p-7">
+        <span class="text-4xl font-black text-blue-500/40">02</span>
+        <h3 class="mt-6 text-xl font-semibold">Review your quotation</h3>
+        <p class="mt-3 text-sm leading-7 text-zinc-500">
+          We investigate sourcing options and send you an offer
+          showing the relevant costs.
+        </p>
+      </article>
+
+      <article class="card-hover rounded-2xl border border-zinc-800 bg-zinc-900/50 p-7">
+        <span class="text-4xl font-black text-blue-500/40">03</span>
+        <h3 class="mt-6 text-xl font-semibold">Approve and receive</h3>
+        <p class="mt-3 text-sm leading-7 text-zinc-500">
+          Approve your offer, complete payment and let us handle
+          the purchasing and delivery process.
+        </p>
+      </article>
+
+    </div>
+
+  </div>
+</section>
+
+
+<!-- FINAL CTA -->
+<section class="mx-auto max-w-7xl px-5 py-24 sm:px-8">
+
+  <div class="relative overflow-hidden rounded-3xl border border-zinc-800 bg-gradient-to-br from-blue-950/50 via-zinc-900 to-zinc-950 p-8 sm:p-14">
+
+    <div class="pointer-events-none absolute -right-20 -top-24 h-72 w-72 rounded-full bg-blue-500/10 blur-3xl"></div>
+
+    <div class="relative flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between">
+
+      <div>
+        <p class="text-xs font-bold uppercase tracking-[.25em] text-blue-400">
+          Your next purchase starts here
+        </p>
+
+        <h2 class="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
+          Have something in mind?
+        </h2>
+
+        <p class="mt-4 max-w-xl leading-7 text-zinc-400">
+          Send us your request. We'll take care of the investigation
+          and sourcing process.
+        </p>
+      </div>
+
+      <a href="https://benjaminmwangi180-hub.github.io/R-BUY-ORDER/"
+         class="inline-flex shrink-0 items-center justify-center gap-3 rounded-xl bg-blue-500 px-7 py-4 font-semibold text-white transition hover:bg-blue-400">
+        Start your order ↗
+      </a>
+
+    </div>
+  </div>
 </section>
 
 </main>
 
-<footer class="border-t border-zinc-900 px-5 py-6 text-center text-xs text-zinc-600">
-  <span class="font-semibold text-zinc-400">R-buy</span>
-  · You can buy anything.
-  <span class="mx-2">|</span>
-  © <span id="year"></span>
+
+<!-- FOOTER -->
+<footer class="border-t border-zinc-900 bg-[#070709]">
+
+  <div class="mx-auto flex max-w-7xl flex-col gap-8 px-5 py-10 sm:px-8 md:flex-row md:items-center md:justify-between">
+
+    <div>
+      <a href="index.html" class="text-2xl font-black tracking-tight">
+        R<span class="text-blue-400">-</span>BUY<span class="text-blue-400">.</span>
+      </a>
+
+      <p class="mt-2 text-sm text-zinc-500">
+        You can buy anything.
+      </p>
+    </div>
+
+    <div class="flex flex-wrap gap-6 text-sm text-zinc-500">
+      <a href="#home" class="transition hover:text-white">Home</a>
+      <a href="#categories" class="transition hover:text-white">Categories</a>
+      <a href="#about" class="transition hover:text-white">About</a>
+      <a href="#how-it-works" class="transition hover:text-white">How it works</a>
+      <a href="https://benjaminmwangi180-hub.github.io/R-BUY-ORDER/"
+         class="transition hover:text-white">Place an order</a>
+    </div>
+
+    <p class="text-xs text-zinc-600">
+      © <span id="year"></span> R-BUY. All rights reserved.
+    </p>
+
+  </div>
 </footer>
 
+
 <script>
-  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // COPYRIGHT YEAR
+  document.getElementById("year").textContent =
+    new Date().getFullYear();
+
+
+  // ORDER PAGE
+  const orderPage =
+    "https://benjaminmwangi180-hub.github.io/R-BUY-ORDER/";
+
+
+  // SEARCH
+  const searchForm = document.getElementById("searchForm");
+  const searchInput = document.getElementById("search");
+  const searchError = document.getElementById("searchError");
+
+  let selectedCategory = "";
+
+
+  // CATEGORY SELECTION
+  const categoryCards =
+    document.querySelectorAll(".category-card");
+
+  const categoryMessage =
+    document.getElementById("categoryMessage");
+
+  const clearCategory =
+    document.getElementById("clearCategory");
+
+
+  categoryCards.forEach(card => {
+
+    card.addEventListener("click", function() {
+
+      selectedCategory = this.dataset.category;
+
+      categoryCards.forEach(item => {
+        item.classList.remove("selected");
+        item.setAttribute("aria-pressed", "false");
+      });
+
+      this.classList.add("selected");
+      this.setAttribute("aria-pressed", "true");
+
+      categoryMessage.textContent =
+        "Selected category: " + selectedCategory;
+
+      clearCategory.classList.remove("hidden");
+
+      searchInput.placeholder =
+        "What are you looking for in " + selectedCategory + "?";
+
+      searchError.classList.add("hidden");
+
+      document.getElementById("home").scrollIntoView({
+        behavior: "smooth"
+      });
+
+      searchInput.focus();
+
+    });
+
+  });
+
+
+  // CLEAR CATEGORY
+  clearCategory.addEventListener("click", function() {
+
+    selectedCategory = "";
+
+    categoryCards.forEach(item => {
+      item.classList.remove("selected");
+      item.setAttribute("aria-pressed", "false");
+    });
+
+    categoryMessage.textContent =
+      "Not sure where your product belongs?";
+
+    clearCategory.classList.add("hidden");
+
+    searchInput.placeholder =
+      "What are you looking for?";
+
+  });
+
+
+  // SEARCH AND REDIRECT
+  searchForm.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    const product = searchInput.value.trim();
+
+    if (!product && !selectedCategory) {
+
+      searchError.classList.remove("hidden");
+      searchInput.focus();
+
+      return;
+
+    }
+
+    searchError.classList.add("hidden");
+
+    const params = new URLSearchParams();
+
+    if (product) {
+      params.set("product", product);
+    }
+
+    if (selectedCategory) {
+      params.set("category", selectedCategory);
+    }
+
+    window.location.href =
+      orderPage + "?" + params.toString();
+
+  });
+
+
+  searchInput.addEventListener("input", function() {
+
+    if (searchInput.value.trim()) {
+      searchError.classList.add("hidden");
+    }
+
+  });
+
 </script>
 
 </body>
