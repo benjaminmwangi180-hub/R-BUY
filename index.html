@@ -76,15 +76,11 @@
       background: #174bc2;
     }
 
-    /* NAVIGATION */
-
     .site-header {
       background: rgba(245,243,237,.92);
       border-color: var(--line);
       box-shadow: 0 3px 20px rgba(30,30,30,.035);
     }
-
-    /* HERO */
 
     .hero-grid {
       background-image:
@@ -207,7 +203,7 @@
       transform: rotate(-9deg);
     }
 
-    /* CONTINUOUS PAGE-WIDE SHOPPING CART */
+    /* MOVING CART */
 
     .cart-track {
       position: fixed;
@@ -325,6 +321,156 @@
       background: white;
     }
 
+    /* INTERACTIVE CATALOGUE */
+
+    .catalogue-panel {
+      display: none;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 20px 55px rgba(30,40,60,.055);
+    }
+
+    .catalogue-panel.active {
+      display: block;
+      animation: catalogueAppear .35s ease both;
+    }
+
+    @keyframes catalogueAppear {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .catalogue-top {
+      background: #f8f8f5;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .catalogue-select {
+      width: 100%;
+      min-width: 0;
+      appearance: none;
+      border: 1px solid #deddd6;
+      border-radius: 10px;
+      background-color: white;
+      padding: 13px 38px 13px 13px;
+      color: var(--ink);
+      font: inherit;
+      font-size: 13px;
+      outline: none;
+      cursor: pointer;
+      transition: border-color .2s ease, box-shadow .2s ease;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23777a82' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 13px center;
+    }
+
+    .catalogue-select:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(37,99,235,.09);
+    }
+
+    .catalogue-select:disabled {
+      background-color: #f5f5f2;
+      color: #aaa;
+      cursor: not-allowed;
+    }
+
+    .catalogue-field label {
+      display: block;
+      margin-bottom: 8px;
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #777a82;
+    }
+
+    .catalogue-summary {
+      background: #f8faff;
+      border: 1px solid #dce6fa;
+      border-radius: 13px;
+    }
+
+    .catalogue-notice {
+      background: #fffaf1;
+      border: 1px solid #f1dfbd;
+      border-radius: 12px;
+    }
+
+    .catalogue-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      background: var(--blue);
+      color: white;
+      padding: 14px 20px;
+      border-radius: 9px;
+      font-size: 13px;
+      font-weight: 700;
+      transition: background .2s ease, transform .2s ease;
+    }
+
+    .catalogue-action:hover {
+      background: #174bc2;
+      transform: translateY(-2px);
+    }
+
+    .catalogue-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--line);
+      background: white;
+      color: var(--ink);
+      padding: 13px 18px;
+      border-radius: 9px;
+      font-size: 13px;
+      font-weight: 600;
+      transition: border-color .2s ease, background .2s ease;
+    }
+
+    .catalogue-secondary:hover {
+      border-color: var(--blue);
+      background: #f8faff;
+    }
+
+    .catalogue-result {
+      min-height: 95px;
+      background: #f8f8f5;
+      border: 1px dashed #d7d6cf;
+      border-radius: 12px;
+    }
+
+    .catalogue-result.has-selection {
+      border-style: solid;
+      border-color: #dce6fa;
+      background: #f8faff;
+    }
+
+    .catalogue-custom {
+      background: #f5f3ed;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+    }
+
+    .catalogue-custom input {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      padding: 12px;
+      font: inherit;
+      font-size: 13px;
+      outline: none;
+      background: white;
+    }
+
+    .catalogue-custom input:focus {
+      border-color: var(--blue);
+    }
+
     .find-card {
       position: relative;
       min-height: 235px;
@@ -398,13 +544,11 @@
       transition: transform .2s ease;
     }
 
-    /* ABOUT AND PROCESS */
-
     .quote-card {
       position: relative;
       border: 1px solid var(--line);
       background: white;
-      box-shadow: 0 20px 55px rgba(30,40,60,.045);
+      box-shadow: 0 20px 55px rgba(30,30,30,.045);
     }
 
     .process-section {
@@ -443,16 +587,13 @@
 
     @media (max-width: 640px) {
       .art-stage { height: 350px; }
-
       .piece-one { width: 135px; height: 145px; }
       .piece-two { width: 130px; height: 130px; }
       .piece-three { width: 145px; height: 125px; }
       .piece-four { width: 100px; height: 90px; }
-
       .piece-emoji { font-size: 57px; }
       .category-card { min-height: 175px; }
       .category-art { font-size: 65px; }
-
       .cart-track { bottom: 3px; }
     }
 
@@ -463,9 +604,7 @@
       }
 
       .moving-cart,
-      .cart-wheel {
-        animation: none !important;
-      }
+      .cart-wheel { animation: none !important; }
 
       .reveal {
         opacity: 1;
@@ -640,7 +779,7 @@
   </div>
 </section>
 
-<!-- CATEGORY PLAYGROUND -->
+<!-- CATEGORY PLAYGROUND + INTERACTIVE CATALOGUE -->
 
 <section id="categories" class="mx-auto max-w-7xl px-5 py-24 sm:px-8">
 
@@ -655,14 +794,16 @@
 
     <div class="max-w-sm">
       <p class="text-sm leading-7 text-zinc-600">
-        A little direction helps us get started. Pick a category,
-        tell us what you're looking for, and we'll take it from there.
+        Browse different product types, explore brands and models,
+        or simply tell us what you have in mind.
       </p>
       <p class="handwritten mt-3 text-xl text-orange-500">
         Can't decide? That's okay too.
       </p>
     </div>
   </div>
+
+  <!-- CATEGORY CARDS -->
 
   <div class="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
 
@@ -739,13 +880,140 @@
     </button>
   </div>
 
+  <!-- CATALOGUE PANEL -->
+
+  <div id="cataloguePanel" class="catalogue-panel mt-8">
+
+    <div class="catalogue-top flex flex-col justify-between gap-4 p-5 sm:flex-row sm:items-center sm:p-7">
+      <div>
+        <p class="section-kicker">R-BUY PRODUCT EXPLORER</p>
+        <h3 id="catalogueHeading" class="mt-2 text-2xl font-black tracking-tight sm:text-3xl">
+          Explore products
+        </h3>
+        <p id="catalogueDescription" class="mt-2 text-sm text-zinc-500">
+          Find the product you're looking for.
+        </p>
+      </div>
+
+      <button id="closeCatalogue" type="button"
+        class="self-start rounded-lg border border-[#deddd6] bg-white px-4 py-2 text-xs font-semibold text-zinc-600 transition hover:border-blue-500 sm:self-center">
+        Close ×
+      </button>
+    </div>
+
+    <div class="p-5 sm:p-7">
+
+      <div class="mb-6 grid gap-4 sm:grid-cols-2">
+
+        <div class="catalogue-field">
+          <label for="catalogueSubcategory">1. Choose a product group</label>
+          <select id="catalogueSubcategory" class="catalogue-select">
+            <option value="">Select a product group</option>
+          </select>
+        </div>
+
+        <div class="catalogue-field">
+          <label for="catalogueType">2. Choose a product type</label>
+          <select id="catalogueType" class="catalogue-select" disabled>
+            <option value="">Select a product type</option>
+          </select>
+        </div>
+
+        <div class="catalogue-field">
+          <label for="catalogueBrand">3. Choose a brand (optional)</label>
+          <select id="catalogueBrand" class="catalogue-select" disabled>
+            <option value="">Any brand / Not sure</option>
+          </select>
+        </div>
+
+        <div class="catalogue-field">
+          <label for="catalogueModel">4. Choose a model (optional)</label>
+          <select id="catalogueModel" class="catalogue-select" disabled>
+            <option value="">Any model / Not sure</option>
+          </select>
+        </div>
+
+      </div>
+
+      <div class="catalogue-result p-4 sm:p-5" id="catalogueResult">
+        <div class="flex items-start gap-3">
+          <span class="text-2xl">🛍️</span>
+          <div>
+            <p class="font-bold">Your product selection will appear here.</p>
+            <p class="mt-1 text-xs leading-6 text-zinc-500">
+              Start by choosing a product group. You don't need to know
+              the exact brand or model to make a request.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-5 flex flex-col gap-3 sm:flex-row">
+        <button id="requestSelectedProduct" type="button" class="catalogue-action">
+          Request this product ↗
+        </button>
+
+        <button id="resetCatalogue" type="button" class="catalogue-secondary">
+          Reset selection
+        </button>
+      </div>
+
+      <!-- CUSTOM REQUEST -->
+
+      <div class="catalogue-custom mt-7 p-5">
+        <div class="flex items-start gap-3">
+          <span class="text-2xl">💡</span>
+          <div>
+            <h4 class="font-bold">Can't find what you're looking for?</h4>
+            <p class="mt-1 text-xs leading-6 text-zinc-500">
+              No problem. Describe your product below and we'll take it
+              from there. You don't have to select anything above.
+            </p>
+          </div>
+        </div>
+
+        <div class="mt-4 flex flex-col gap-3 sm:flex-row">
+          <input id="customCatalogueProduct" type="text"
+            placeholder="Describe the product you want..."
+            maxlength="180">
+
+          <button id="requestCustomProduct" type="button"
+            class="primary-button shrink-0 rounded-lg px-5 py-3 text-sm font-bold">
+            Make a custom request ↗
+          </button>
+        </div>
+
+        <p id="catalogueError" class="mt-3 hidden text-xs text-red-500">
+          Please select or describe a product first.
+        </p>
+      </div>
+
+      <!-- CATALOGUE NOTICE -->
+
+      <div class="catalogue-notice mt-7 flex items-start gap-3 p-4">
+        <span class="text-xl">ℹ️</span>
+        <div>
+          <p class="text-sm font-bold text-zinc-800">A note about our catalogue</p>
+          <p class="mt-1 text-xs leading-6 text-zinc-600">
+            All products displayed on R-BUY are for illustration and product
+            discovery purposes. Listing a product does not mean it is currently
+            in stock or immediately available. Once we have sourced and confirmed
+            the availability of your requested product, we will notify you with
+            the details.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
   <div class="category-info mt-7 flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between">
     <div>
       <p id="categoryMessage" class="font-semibold">
         Not sure where your product belongs?
       </p>
       <p class="mt-1 text-xs text-zinc-500">
-        Select a category, then describe your product in the search box.
+        Select a category to explore product types, brands and models.
       </p>
     </div>
 
@@ -1126,7 +1394,7 @@
   </div>
 </footer>
 
-<!-- THE SHOPPING CART: FIXED ACROSS THE ENTIRE PAGE -->
+<!-- THE SHOPPING CART -->
 
 <div class="cart-track" aria-hidden="true">
   <div class="cart-road"></div>
@@ -1152,106 +1420,1259 @@
 <!-- JAVASCRIPT -->
 
 <script>
-  // COPYRIGHT YEAR
+  // --------------------------------------------------
+  // BASIC PAGE SETTINGS
+  // --------------------------------------------------
 
   document.getElementById("year").textContent =
     new Date().getFullYear();
-
-
-  // ORDER PAGE
 
   const orderPage =
     "https://benjaminmwangi180-hub.github.io/R-BUY-ORDER/";
 
 
+  // --------------------------------------------------
+  // PRODUCT CATALOGUE DATA
+  // Category > Product group > Product type > Brand > Model
+  // --------------------------------------------------
+
+  const catalogueData = {
+
+    "Electronics": {
+      description: "Explore gadgets, entertainment devices and personal technology.",
+      groups: {
+
+        "Audio & Headphones": {
+          "Earpods": {
+            "Apple": ["AirPods 2nd Generation", "AirPods 3rd Generation", "AirPods 4", "AirPods Pro 2", "AirPods Pro 3"],
+            "Samsung": ["Galaxy Buds FE", "Galaxy Buds2 Pro", "Galaxy Buds3", "Galaxy Buds3 Pro"],
+            "JBL": ["Wave Buds", "Tune Buds", "Live Pro 2"],
+            "Oraimo": ["FreePods 3", "FreePods Lite", "FreePods Neo"]
+          },
+          "Wireless Headphones": {
+            "Sony": ["WH-CH520", "WH-CH720N", "WH-1000XM5", "WH-1000XM6"],
+            "JBL": ["Tune 520BT", "Tune 720BT", "Live 660NC"],
+            "Bose": ["QuietComfort", "QuietComfort Ultra"],
+            "Anker Soundcore": ["Life Q30", "Space One", "Life Q35"]
+          },
+          "Wired Earphones": {
+            "Apple": ["EarPods USB-C", "EarPods Lightning", "EarPods 3.5mm"],
+            "Samsung": ["AKG Wired Earphones"],
+            "JBL": ["Tune 110", "C100SI"],
+            "Oraimo": ["OEP-E21", "OEP-320"]
+          },
+          "Bluetooth Speakers": {
+            "JBL": ["Go 3", "Go 4", "Flip 6", "Charge 5", "Xtreme 4"],
+            "Sony": ["SRS-XB100", "SRS-XE300", "ULT Field 1"],
+            "Bose": ["SoundLink Flex", "SoundLink Max"],
+            "Anker Soundcore": ["Motion+", "Select 4 Go", "Boom 2"]
+          }
+        },
+
+        "Phones & Tablets": {
+          "Smartphones": {
+            "Apple": ["iPhone 13", "iPhone 14", "iPhone 15", "iPhone 16", "iPhone 17"],
+            "Samsung": ["Galaxy A15", "Galaxy A25", "Galaxy A55", "Galaxy S24", "Galaxy S25"],
+            "Tecno": ["Spark 20", "Spark 30", "Camon 30", "Camon 40", "Phantom V Fold"],
+            "Infinix": ["Hot 40", "Hot 50", "Note 40", "Note 50", "Zero 40"],
+            "Xiaomi": ["Redmi Note 13", "Redmi Note 14", "Poco X6", "Poco X7"]
+          },
+          "Tablets": {
+            "Apple": ["iPad 10th Generation", "iPad Air", "iPad Pro"],
+            "Samsung": ["Galaxy Tab A9", "Galaxy Tab S9 FE", "Galaxy Tab S10"],
+            "Lenovo": ["Tab M10", "Tab P12"],
+            "Xiaomi": ["Redmi Pad SE", "Xiaomi Pad 6"]
+          },
+          "Phone Accessories": {
+            "Apple": ["MagSafe Charger", "MagSafe Case", "USB-C Adapter"],
+            "Samsung": ["Galaxy Buds Case", "Fast Charger", "Galaxy SmartTag"],
+            "Anker": ["PowerCore Power Bank", "Nano Charger", "USB-C Cable"],
+            "Oraimo": ["PowerJet Power Bank", "Charging Cable", "Phone Holder"]
+          },
+          "Power Banks": {
+            "Anker": ["PowerCore 10000", "PowerCore 20000", "Prime Power Bank"],
+            "Oraimo": ["Toast 10", "Toast 20", "Toast 30"],
+            "Xiaomi": ["Redmi Power Bank 10000", "Mi Power Bank 20000"],
+            "Baseus": ["Blade Power Bank", "Adaman Power Bank"]
+          }
+        },
+
+        "Computers & Accessories": {
+          "Laptops": {
+            "Apple": ["MacBook Air M2", "MacBook Air M3", "MacBook Air M4", "MacBook Pro"],
+            "HP": ["Pavilion 15", "Envy x360", "ProBook 450", "EliteBook 840"],
+            "Dell": ["Inspiron 15", "Latitude 5440", "XPS 13"],
+            "Lenovo": ["IdeaPad 3", "ThinkPad E14", "ThinkPad T14", "Yoga Slim"],
+            "ASUS": ["VivoBook 15", "ZenBook 14", "ROG Zephyrus"]
+          },
+          "Computer Monitors": {
+            "Samsung": ["Essential Monitor", "Odyssey G5", "Odyssey G7"],
+            "Dell": ["P2422H", "S2722DC", "UltraSharp U2723QE"],
+            "LG": ["UltraGear 24GN60R", "UltraWide 29WQ600"],
+            "HP": ["M24f", "E24 G5"]
+          },
+          "Keyboards & Mice": {
+            "Logitech": ["K120", "K380", "MX Keys", "G Pro X"],
+            "Razer": ["BlackWidow V4", "DeathAdder V3"],
+            "HP": ["HP 150", "HP 230 Wireless"],
+            "Redragon": ["K552 Kumara", "K617 Fizz"]
+          },
+          "Storage Devices": {
+            "Samsung": ["T7 Shield", "T9 Portable SSD"],
+            "SanDisk": ["Ultra Flair", "Extreme Portable SSD"],
+            "Kingston": ["DataTraveler Exodia", "XS1000 SSD"],
+            "WD": ["My Passport", "Elements Portable"]
+          }
+        },
+
+        "Cameras & Photography": {
+          "Digital Cameras": {
+            "Canon": ["EOS 2000D", "EOS R50", "EOS R10", "EOS R6"],
+            "Sony": ["ZV-E10", "A6400", "A7 III", "A7 IV"],
+            "Nikon": ["D3500", "Z30", "Z50", "Z6 II"],
+            "Fujifilm": ["X-S10", "X-T30 II", "X-T5"]
+          },
+          "Action Cameras": {
+            "GoPro": ["HERO 11", "HERO 12", "HERO 13"],
+            "DJI": ["Osmo Action 4", "Osmo Action 5 Pro"],
+            "Insta360": ["X3", "X4", "Ace Pro"]
+          },
+          "Camera Accessories": {
+            "DJI": ["RS 3 Mini", "RS 4", "Mic 2"],
+            "Godox": ["TT685", "V1 Flash", "SL60"],
+            "Manfrotto": ["Compact Tripod", "Element Tripod"],
+            "Ulanzi": ["Camera Cage", "Tripod", "LED Light"]
+          }
+        },
+
+        "Gaming": {
+          "Gaming Consoles": {
+            "Sony": ["PlayStation 5", "PlayStation 5 Slim", "PlayStation 5 Pro"],
+            "Microsoft": ["Xbox Series S", "Xbox Series X"],
+            "Nintendo": ["Nintendo Switch", "Nintendo Switch OLED"]
+          },
+          "Gaming Controllers": {
+            "Sony": ["DualSense", "DualSense Edge"],
+            "Microsoft": ["Xbox Wireless Controller", "Elite Series 2"],
+            "8BitDo": ["Ultimate Controller", "Pro 2"]
+          },
+          "Gaming Headsets": {
+            "Razer": ["BlackShark V2", "Kraken V3"],
+            "Logitech": ["G435", "G733", "G Pro X"],
+            "SteelSeries": ["Arctis Nova 1", "Arctis Nova 7"],
+            "HyperX": ["Cloud II", "Cloud III"]
+          }
+        }
+      }
+    },
+
+    "Fashion": {
+      description: "Explore clothing, footwear, bags, watches and accessories.",
+      groups: {
+
+        "Shoes & Footwear": {
+          "Sneakers": {
+            "Nike": ["Air Force 1", "Air Jordan 1", "Air Max 90", "Dunk Low", "Air Max 270"],
+            "Adidas": ["Samba OG", "Campus 00s", "Ultraboost", "Forum Low"],
+            "Puma": ["Suede Classic", "RS-X", "Cali"],
+            "New Balance": ["530", "550", "574", "9060"],
+            "Converse": ["Chuck Taylor All Star", "Run Star Hike"]
+          },
+          "Running Shoes": {
+            "Nike": ["Pegasus 40", "Vomero 17", "InfinityRN 4"],
+            "Adidas": ["Ultraboost 5", "Supernova Rise", "Adizero SL"],
+            "Asics": ["Gel-Kayano 30", "Gel-Nimbus 26", "Novablast 4"],
+            "New Balance": ["Fresh Foam 1080", "FuelCell Rebel"]
+          },
+          "Formal Shoes": {
+            "Clarks": ["Tilden Cap", "Atticus Lace"],
+            "Bata": ["Formal Oxford", "Derby Shoes"],
+            "Hush Puppies": ["Gil", "Cayson"]
+          },
+          "Sandals & Slides": {
+            "Nike": ["Victori One", "Calm Slides"],
+            "Adidas": ["Adilette Aqua", "Adilette Comfort"],
+            "Crocs": ["Classic Clog", "Classic Slide"],
+            "Birkenstock": ["Arizona", "Madrid"]
+          }
+        },
+
+        "Clothing": {
+          "T-Shirts & Tops": {
+            "Nike": ["Sportswear Club Tee", "Dri-FIT Tee"],
+            "Adidas": ["Essentials Tee", "Trefoil Tee"],
+            "Puma": ["Essentials Logo Tee"],
+            "H&M": ["Regular Fit T-Shirt", "Oversized T-Shirt"],
+            "Zara": ["Basic Tee", "Relaxed Fit Tee"]
+          },
+          "Jeans & Trousers": {
+            "Levi's": ["501 Original", "511 Slim", "512 Slim Taper"],
+            "H&M": ["Slim Jeans", "Relaxed Jeans"],
+            "Zara": ["Straight Fit Jeans", "Wide Leg Jeans"],
+            "Wrangler": ["Texas Jeans", "Larston"]
+          },
+          "Jackets & Hoodies": {
+            "Nike": ["Tech Fleece Hoodie", "Club Fleece Hoodie"],
+            "Adidas": ["Essentials Hoodie", "Z.N.E. Hoodie"],
+            "The North Face": ["Nuptse Jacket", "Antora Jacket"],
+            "Puma": ["Essentials Hoodie", "T7 Track Jacket"]
+          },
+          "Dresses & Skirts": {
+            "Zara": ["Midi Dress", "Satin Dress", "Mini Skirt"],
+            "H&M": ["Maxi Dress", "Wrap Dress", "Pleated Skirt"],
+            "Mango": ["Shirt Dress", "Knitted Dress"]
+          },
+          "Formal Wear": {
+            "Hugo Boss": ["Slim Fit Suit", "Regular Fit Suit"],
+            "Zara": ["Tailored Blazer", "Suit Trousers"],
+            "H&M": ["Single-Breasted Blazer", "Formal Trousers"]
+          }
+        },
+
+        "Bags & Luggage": {
+          "Backpacks": {
+            "Nike": ["Elemental Backpack", "Hayward Backpack"],
+            "Adidas": ["Classic Backpack", "Power Backpack"],
+            "Herschel": ["Classic Backpack", "Little America"],
+            "The North Face": ["Borealis", "Jester"]
+          },
+          "Handbags": {
+            "Michael Kors": ["Jet Set Tote", "Sullivan"],
+            "Guess": ["Noelle", "Silvana"],
+            "Coach": ["Tabby", "Willow Tote"],
+            "Zara": ["Shoulder Bag", "Mini City Bag"]
+          },
+          "Travel Luggage": {
+            "Samsonite": ["S'Cure", "Lite-Shock", "Evoa"],
+            "American Tourister": ["Soundbox", "Bon Air"],
+            "Delsey": ["Helium", "Comete"]
+          }
+        },
+
+        "Watches & Accessories": {
+          "Wrist Watches": {
+            "Casio": ["F-91W", "G-Shock GA-2100", "Edifice"],
+            "Seiko": ["5 Sports", "Presage", "Prospex"],
+            "Citizen": ["Eco-Drive"],
+            "Fossil": ["Gen 6", "Machine"],
+            "Apple": ["Apple Watch SE", "Apple Watch Series 10", "Apple Watch Ultra"]
+          },
+          "Sunglasses": {
+            "Ray-Ban": ["Aviator", "Wayfarer", "Clubmaster"],
+            "Oakley": ["Holbrook", "Frogskins"],
+            "Polaroid": ["PLD Series"]
+          },
+          "Belts & Wallets": {
+            "Levi's": ["Classic Leather Belt", "Bi-Fold Wallet"],
+            "Fossil": ["Derrick Wallet", "Ingram Wallet"],
+            "Tommy Hilfiger": ["Leather Belt", "Bifold Wallet"]
+          }
+        }
+      }
+    },
+
+    "Home & Living": {
+      description: "Find appliances, furniture, kitchen essentials and home accessories.",
+      groups: {
+
+        "Kitchen Appliances": {
+          "Air Fryers": {
+            "Philips": ["Essential Airfryer XL", "Premium Airfryer XXL"],
+            "Ninja": ["AF100", "AF160", "Foodi Dual Zone"],
+            "Ramtons": ["RM/560", "RM/577"],
+            "Mika": ["Digital Air Fryer", "Manual Air Fryer"]
+          },
+          "Blenders": {
+            "NutriBullet": ["600 Series", "900 Series", "Pro 1000"],
+            "Philips": ["HR2041", "HR2221"],
+            "Kenwood": ["Blend-X Fresh", "Blend-X Compact"],
+            "Ramtons": ["RM/560", "RM/578"]
+          },
+          "Microwaves": {
+            "Samsung": ["MS23K3513", "MS23T5018"],
+            "LG": ["NeoChef 25L", "NeoChef 42L"],
+            "Hisense": ["H20MOBS10", "H30MOBS10"],
+            "Ramtons": ["RM/238", "RM/239"]
+          },
+          "Electric Kettles": {
+            "Philips": ["HD9350", "HD9318"],
+            "Russell Hobbs": ["Colours Plus", "Adventure Kettle"],
+            "Ramtons": ["RM/328", "RM/329"],
+            "Mika": ["Stainless Steel Kettle"]
+          },
+          "Pressure Cookers": {
+            "Instant Pot": ["Duo 6QT", "Duo Plus", "Pro"],
+            "Ninja": ["Foodi 7-in-1", "Foodi MAX"],
+            "Moulinex": ["Cookeo"],
+            "Ramtons": ["Electric Pressure Cooker"]
+          },
+          "Refrigerators": {
+            "Samsung": ["Bespoke", "Side-by-Side", "RT Series"],
+            "LG": ["Door-in-Door", "InstaView", "Top Freezer"],
+            "Hisense": ["Side-by-Side", "Bottom Freezer"],
+            "Bruhm": ["Double Door Refrigerator"],
+            "Mika": ["Double Door Refrigerator"]
+          }
+        },
+
+        "Furniture": {
+          "Sofas & Couches": {
+            "Ashley Furniture": ["L-Shaped Sofa", "Recliner Sofa"],
+            "IKEA": ["KIVIK", "SÖDERHAMN", "LANDSKRONA"],
+            "Home Centre": ["Fabric Sofa", "Sectional Sofa"]
+          },
+          "Beds & Mattresses": {
+            "Silentnight": ["Miracoil", "Pocket Essentials"],
+            "Sealy": ["Posturepedic"],
+            "IKEA": ["MALM Bed", "BRIMNES Bed"],
+            "Dr. Mattress": ["Orthopedic Mattress"]
+          },
+          "Tables & Desks": {
+            "IKEA": ["LAGKAPTEN", "MICKE", "TROTTEN"],
+            "Ashley Furniture": ["Dining Table", "Coffee Table"],
+            "Home Centre": ["Study Desk", "Dining Table"]
+          },
+          "Chairs": {
+            "IKEA": ["MARKUS", "FLINTAN", "POÄNG"],
+            "Herman Miller": ["Aeron", "Sayl"],
+            "Secretlab": ["TITAN Evo"],
+            "Generic": ["Office Chair", "Dining Chair"]
+          }
+        },
+
+        "Home Appliances": {
+          "Washing Machines": {
+            "Samsung": ["EcoBubble 8kg", "Bespoke AI"],
+            "LG": ["Vivace 8kg", "TurboWash"],
+            "Hisense": ["WFQY Series"],
+            "Ramtons": ["Front Load", "Top Load"]
+          },
+          "Televisions": {
+            "Samsung": ["Crystal UHD", "QLED Q60", "Neo QLED"],
+            "LG": ["UHD AI", "OLED C4", "QNED"],
+            "Hisense": ["A6 Series", "U7 Series", "U8 Series"],
+            "TCL": ["P635", "C645", "C755"],
+            "Sony": ["Bravia X80L", "Bravia XR"]
+          },
+          "Vacuum Cleaners": {
+            "Dyson": ["V8", "V10", "V15 Detect"],
+            "Philips": ["PowerPro Compact"],
+            "Xiaomi": ["G10", "G11"],
+            "Karcher": ["WD 3", "VC 3"]
+          },
+          "Fans & Cooling": {
+            "Mika": ["Standing Fan", "Wall Fan"],
+            "Ramtons": ["Standing Fan", "Desk Fan"],
+            "Midea": ["Portable Air Conditioner", "Split AC"],
+            "Hisense": ["Split Air Conditioner"]
+          }
+        },
+
+        "Home Decor & Essentials": {
+          "Lighting": {
+            "Philips": ["Hue Bulb", "LED Ceiling Light"],
+            "Xiaomi": ["Mi Smart LED Bulb"],
+            "Generic": ["Pendant Light", "Table Lamp", "Floor Lamp"]
+          },
+          "Bedding": {
+            "IKEA": ["DVALA", "NATTJASMIN"],
+            "Home Centre": ["Duvet Set", "Bedsheet Set"],
+            "Generic": ["Comforter Set", "Pillow Set"]
+          },
+          "Storage & Organisation": {
+            "IKEA": ["KALLAX", "ALEX", "TROFAST"],
+            "Generic": ["Storage Boxes", "Wardrobe Organisers", "Shelving"]
+          }
+        }
+      }
+    },
+
+    "Beauty & Personal Care": {
+      description: "Explore skincare, haircare, grooming and personal care products.",
+      groups: {
+
+        "Skincare": {
+          "Cleansers": {
+            "CeraVe": ["Foaming Cleanser", "Hydrating Cleanser"],
+            "Cetaphil": ["Gentle Skin Cleanser", "Daily Facial Cleanser"],
+            "La Roche-Posay": ["Effaclar Gel", "Toleriane Cleanser"],
+            "Neutrogena": ["Hydro Boost Cleanser"]
+          },
+          "Moisturisers": {
+            "CeraVe": ["Moisturising Cream", "Daily Moisturising Lotion"],
+            "Nivea": ["Soft Cream", "Essential Care"],
+            "Cetaphil": ["Moisturising Cream", "Daily Hydrating Lotion"],
+            "The Ordinary": ["Natural Moisturizing Factors"]
+          },
+          "Sunscreen": {
+            "La Roche-Posay": ["Anthelios SPF50+"],
+            "Neutrogena": ["Ultra Sheer SPF50"],
+            "Nivea": ["Sun Protect SPF50"],
+            "Beauty of Joseon": ["Relief Sun SPF50+"]
+          },
+          "Serums": {
+            "The Ordinary": ["Niacinamide 10%", "Hyaluronic Acid 2%", "Vitamin C"],
+            "CeraVe": ["Resurfacing Retinol Serum"],
+            "Garnier": ["Vitamin C Serum"],
+            "L'Oreal": ["Revitalift Serum"]
+          }
+        },
+
+        "Haircare": {
+          "Shampoo & Conditioner": {
+            "L'Oreal": ["Elvive Dream Lengths", "EverPure"],
+            "Dove": ["Daily Moisture", "Intensive Repair"],
+            "Pantene": ["Pro-V Repair", "Miracle Moisture"],
+            "SheaMoisture": ["Coconut & Hibiscus", "Manuka Honey"]
+          },
+          "Hair Styling": {
+            "GHD": ["Platinum+", "Gold Styler"],
+            "Dyson": ["Airwrap", "Supersonic"],
+            "Remington": ["Proluxe", "Keratin Protect"],
+            "Philips": ["StyleCare"]
+          },
+          "Hair Clippers": {
+            "Wahl": ["Magic Clip", "Senior", "Super Taper"],
+            "Philips": ["Multigroom Series 5000", "Series 7000"],
+            "Andis": ["Master", "Envy Li"]
+          }
+        },
+
+        "Fragrance": {
+          "Perfumes": {
+            "Dior": ["Sauvage", "Miss Dior", "J'adore"],
+            "Chanel": ["Bleu de Chanel", "Coco Mademoiselle", "Chance"],
+            "Versace": ["Eros", "Dylan Blue", "Bright Crystal"],
+            "Armani": ["Acqua di Gio", "Stronger With You"],
+            "Yves Saint Laurent": ["Y EDP", "Libre", "Black Opium"]
+          },
+          "Body Sprays": {
+            "Victoria's Secret": ["Bare Vanilla", "Pure Seduction"],
+            "Bath & Body Works": ["Japanese Cherry Blossom", "Into the Night"],
+            "Nivea": ["Fresh Natural", "Black & White"]
+          }
+        },
+
+        "Grooming & Personal Care": {
+          "Electric Shavers": {
+            "Philips": ["OneBlade", "Series 3000", "Series 5000"],
+            "Braun": ["Series 3", "Series 5", "Series 7"],
+            "Wahl": ["Travel Shaver", "LifeProof Shaver"]
+          },
+          "Oral Care": {
+            "Oral-B": ["Pro 1000", "Vitality", "iO Series"],
+            "Philips": ["Sonicare 3100", "Sonicare ProtectiveClean"],
+            "Colgate": ["Electric Toothbrush"]
+          },
+          "Beauty Tools": {
+            "Revlon": ["One-Step Volumiser", "Salon One-Step"],
+            "Foreo": ["LUNA 3", "LUNA 4"],
+            "Philips": ["Lumea IPL"]
+          }
+        }
+      }
+    },
+
+    "Sports & Outdoors": {
+      description: "Find fitness equipment, sports gear, outdoor equipment and activewear.",
+      groups: {
+
+        "Fitness Equipment": {
+          "Dumbbells & Weights": {
+            "Decathlon": ["Hex Dumbbells", "Adjustable Dumbbells"],
+            "Bowflex": ["SelectTech 552", "SelectTech 1090"],
+            "Generic": ["Rubber Dumbbells", "Weight Plates", "Kettlebells"]
+          },
+          "Treadmills": {
+            "NordicTrack": ["T Series", "Commercial 1750"],
+            "ProForm": ["Carbon TL", "City L6"],
+            "Reebok": ["Jet 100", "ZR8"],
+            "Generic": ["Foldable Treadmill"]
+          },
+          "Exercise Bikes": {
+            "Peloton": ["Bike", "Bike+"],
+            "Schwinn": ["IC4", "470"],
+            "Decathlon": ["Domyos Exercise Bike"]
+          },
+          "Yoga Equipment": {
+            "Manduka": ["PRO Mat", "Begin Mat"],
+            "Decathlon": ["Yoga Mat", "Yoga Blocks"],
+            "Generic": ["Yoga Mat", "Resistance Bands"]
+          }
+        },
+
+        "Sports Gear": {
+          "Football Equipment": {
+            "Nike": ["Flight Football", "Academy Football"],
+            "Adidas": ["Al Rihla", "UCL Football"],
+            "Puma": ["Orbita Football"],
+            "Mitre": ["Ultimax Football"]
+          },
+          "Basketball Equipment": {
+            "Spalding": ["TF-1000", "Street Basketball"],
+            "Wilson": ["Evolution", "NBA DRV"],
+            "Nike": ["Elite Basketball"]
+          },
+          "Tennis Equipment": {
+            "Wilson": ["Pro Staff", "Blade 98", "Clash 100"],
+            "Babolat": ["Pure Drive", "Pure Aero"],
+            "Head": ["Speed MP", "Radical MP"]
+          },
+          "Cycling Equipment": {
+            "Giant": ["Escape 3", "Talon"],
+            "Trek": ["Marlin 5", "FX 2"],
+            "Decathlon": ["Riverside", "Rockrider"]
+          }
+        },
+
+        "Outdoor & Camping": {
+          "Tents": {
+            "Coleman": ["Sundome", "Skydome"],
+            "Quechua": ["2 Seconds", "Arpenaz"],
+            "Naturehike": ["Cloud Up", "Star River"]
+          },
+          "Camping Equipment": {
+            "Coleman": ["Camping Stove", "Cooler"],
+            "Decathlon": ["Camping Chair", "Sleeping Bag"],
+            "Naturehike": ["Sleeping Bag", "Camping Table"]
+          },
+          "Backpacks": {
+            "The North Face": ["Borealis", "Recon"],
+            "Osprey": ["Farpoint 40", "Atmos AG"],
+            "Quechua": ["NH Escape 500"]
+          }
+        },
+
+        "Sportswear": {
+          "Training Shoes": {
+            "Nike": ["Metcon 9", "Free Metcon 5"],
+            "Adidas": ["Dropset 3", "Rapidmove"],
+            "Under Armour": ["TriBase Reign"]
+          },
+          "Sports Clothing": {
+            "Nike": ["Dri-FIT Range", "Pro Compression"],
+            "Adidas": ["Techfit", "Aeroready"],
+            "Puma": ["Train Essentials"]
+          }
+        }
+      }
+    },
+
+    "Automotive": {
+      description: "Explore vehicle accessories, maintenance equipment and automotive technology.",
+      groups: {
+
+        "Car Electronics": {
+          "Car Audio": {
+            "Pioneer": ["MVH-S325BT", "DEH-S4250BT"],
+            "Sony": ["DSX-A410BT", "XAV-AX3200"],
+            "JBL": ["Stage 2 Speakers", "Club Speakers"],
+            "Kenwood": ["DMX Series"]
+          },
+          "Dash Cameras": {
+            "70mai": ["A500S", "A800S", "A810"],
+            "Garmin": ["Dash Cam Mini 2", "Dash Cam 67W"],
+            "Viofo": ["A119 Mini 2", "A229 Pro"]
+          },
+          "Car Trackers": {
+            "Teltonika": ["FMB920", "FMC920"],
+            "Concox": ["GT06N"],
+            "Generic": ["GPS Vehicle Tracker"]
+          },
+          "Car Chargers": {
+            "Anker": ["PowerDrive III", "PowerDrive 2"],
+            "Baseus": ["Dual USB Car Charger"],
+            "Ugreen": ["USB-C Car Charger"]
+          }
+        },
+
+        "Car Accessories": {
+          "Floor Mats": {
+            "WeatherTech": ["FloorLiner"],
+            "3D MAXpider": ["Kagu Series"],
+            "Generic": ["Universal Rubber Mats", "Custom Fit Mats"]
+          },
+          "Seat Covers": {
+            "Generic": ["Leather Seat Covers", "Fabric Seat Covers"],
+            "Sparco": ["Racing Seat Covers"]
+          },
+          "Car Organisers": {
+            "Generic": ["Boot Organiser", "Seat Organiser", "Console Organiser"]
+          },
+          "Phone Mounts": {
+            "Baseus": ["Gravity Car Mount", "MagSafe Car Mount"],
+            "Anker": ["MagGo Car Mount"],
+            "Ugreen": ["Dashboard Phone Holder"]
+          }
+        },
+
+        "Car Maintenance": {
+          "Tyres": {
+            "Michelin": ["Primacy 4", "Pilot Sport 5"],
+            "Bridgestone": ["Turanza", "Dueler"],
+            "Goodyear": ["EfficientGrip", "Eagle F1"],
+            "Continental": ["PremiumContact"]
+          },
+          "Car Batteries": {
+            "Bosch": ["S4", "S5"],
+            "Exide": ["Premium", "Mileage"],
+            "Amaron": ["Pro", "Go"]
+          },
+          "Tools & Equipment": {
+            "Michelin": ["Digital Tyre Inflator"],
+            "Bosch": ["EasyPump", "Car Battery Charger"],
+            "Generic": ["Jump Starter", "OBD Scanner", "Tool Kit"]
+          }
+        },
+
+        "Motorcycle Accessories": {
+          "Helmets": {
+            "AGV": ["K1", "K3"],
+            "HJC": ["C10", "i70"],
+            "LS2": ["Stream", "Rapid"],
+            "Generic": ["Full Face Helmet", "Open Face Helmet"]
+          },
+          "Riding Gear": {
+            "Alpinestars": ["SMX-1 Gloves", "Jacket"],
+            "Dainese": ["Racing Gloves", "Riding Jacket"],
+            "Generic": ["Knee Guards", "Riding Boots"]
+          }
+        }
+      }
+    },
+
+    "Office & Technology": {
+      description: "Find office equipment, stationery, printers and professional technology.",
+      groups: {
+
+        "Office Equipment": {
+          "Printers": {
+            "HP": ["LaserJet Pro M404", "Smart Tank 515", "DeskJet 2710"],
+            "Epson": ["EcoTank L3250", "EcoTank L4260"],
+            "Canon": ["PIXMA G3410", "PIXMA G3420", "i-SENSYS"],
+            "Brother": ["DCP-T420W", "HL-L2350DW"]
+          },
+          "Scanners": {
+            "Canon": ["LiDE 300", "DR-C225"],
+            "Epson": ["V39 II", "DS-410"],
+            "HP": ["ScanJet Pro 2600"]
+          },
+          "Projectors": {
+            "Epson": ["CO-FH02", "EB-E01", "EH-TW7000"],
+            "BenQ": ["MS550", "TH575"],
+            "ViewSonic": ["PA503W", "PX701HD"]
+          },
+          "Shredders": {
+            "Fellowes": ["Powershred 12C", "LX25"],
+            "Bonsaii": ["C149-C", "S120-C"],
+            "Generic": ["Paper Shredder"]
+          }
+        },
+
+        "Stationery & Supplies": {
+          "Writing Instruments": {
+            "Pilot": ["G2", "FriXion", "V5"],
+            "Parker": ["Jotter", "IM"],
+            "BIC": ["Cristal", "Round Stic"],
+            "Staedtler": ["Triplus", "Noris"]
+          },
+          "Notebooks & Paper": {
+            "Moleskine": ["Classic Notebook", "Cahier"],
+            "Oxford": ["Office Notebook"],
+            "Generic": ["A4 Paper", "Exercise Books", "Spiral Notebooks"]
+          },
+          "Office Organisation": {
+            "Fellowes": ["Document Tray", "Desk Organiser"],
+            "Generic": ["File Folders", "Filing Cabinet", "Desk Organiser"]
+          }
+        },
+
+        "Networking & Connectivity": {
+          "Routers": {
+            "TP-Link": ["Archer C6", "Archer AX23", "Archer AX55"],
+            "Huawei": ["B535", "B818", "5G CPE Pro"],
+            "D-Link": ["DIR-825", "DIR-X1560"],
+            "MikroTik": ["hAP ac2", "hAP ax2"]
+          },
+          "Network Switches": {
+            "TP-Link": ["TL-SG105", "TL-SG108", "TL-SG1016"],
+            "Cisco": ["CBS110", "CBS250"],
+            "Netgear": ["GS305", "GS308"]
+          },
+          "Wi-Fi Extenders": {
+            "TP-Link": ["RE200", "RE305", "RE505X"],
+            "Netgear": ["EX6120", "EX7300"],
+            "D-Link": ["DAP-1610"]
+          }
+        },
+
+        "Office Furniture": {
+          "Office Desks": {
+            "IKEA": ["BEKANT", "TROTTEN", "IDÅSEN"],
+            "Generic": ["Executive Desk", "Standing Desk"]
+          },
+          "Office Chairs": {
+            "Herman Miller": ["Aeron", "Sayl"],
+            "IKEA": ["MARKUS", "FLINTAN"],
+            "Secretlab": ["TITAN Evo"],
+            "Generic": ["Ergonomic Office Chair"]
+          },
+          "Filing Cabinets": {
+            "IKEA": ["GALANT", "IDÅSEN"],
+            "Generic": ["Metal Filing Cabinet", "Mobile Pedestal"]
+          }
+        }
+      }
+    },
+
+    "Other": {
+      description: "Have something completely different in mind? Start with a product group or make a custom request.",
+      groups: {
+        "Books & Education": {
+          "Books": {
+            "Penguin Random House": ["Fiction", "Non-fiction", "Business Books"],
+            "Oxford": ["Dictionaries", "Academic Books"],
+            "Pearson": ["Textbooks", "Study Guides"],
+            "Other": ["Novel", "Textbook", "Children's Book"]
+          },
+          "Learning Equipment": {
+            "Casio": ["FX-991ES Plus", "FX-991EX", "FX-82MS"],
+            "Texas Instruments": ["TI-84 Plus", "TI-30XS"],
+            "Other": ["Scientific Calculator", "Drawing Set", "Learning Kit"]
+          }
+        },
+
+        "Musical Instruments": {
+          "Guitars": {
+            "Fender": ["Player Stratocaster", "Telecaster"],
+            "Yamaha": ["F310", "FG800", "C40"],
+            "Gibson": ["Les Paul", "SG"],
+            "Other": ["Acoustic Guitar", "Electric Guitar", "Bass Guitar"]
+          },
+          "Keyboards & Pianos": {
+            "Yamaha": ["PSR-E373", "P-45", "P-125"],
+            "Casio": ["CT-S300", "CDP-S110"],
+            "Roland": ["FP-10", "GO:KEYS"]
+          },
+          "Audio Equipment": {
+            "Focusrite": ["Scarlett Solo", "Scarlett 2i2"],
+            "Shure": ["SM58", "SM7B"],
+            "Behringer": ["Xenyx Q802USB", "UMC22"]
+          }
+        },
+
+        "Toys & Hobbies": {
+          "Building Sets": {
+            "LEGO": ["Technic", "City", "Creator", "Architecture"],
+            "Other": ["Building Blocks", "Model Kits"]
+          },
+          "Remote Control Toys": {
+            "DJI": ["Mini 3", "Mini 4 Pro", "Air 3"],
+            "Other": ["RC Car", "RC Boat", "RC Drone"]
+          },
+          "Board Games": {
+            "Hasbro": ["Monopoly", "Scrabble", "Cluedo"],
+            "Mattel": ["UNO", "Pictionary"],
+            "Other": ["Chess Set", "Board Game"]
+          }
+        },
+
+        "Other Products": {
+          "General Products": {
+            "Other": ["Specialty Product", "Gift Item", "Collectible", "Something Else"]
+          }
+        }
+      }
+    }
+  };
+
+
+  // --------------------------------------------------
   // SEARCH ELEMENTS
+  // --------------------------------------------------
 
-  const searchForm =
-    document.getElementById("searchForm");
-
-  const searchInput =
-    document.getElementById("search");
-
-  const searchError =
-    document.getElementById("searchError");
+  const searchForm = document.getElementById("searchForm");
+  const searchInput = document.getElementById("search");
+  const searchError = document.getElementById("searchError");
 
 
-  // CATEGORY ELEMENTS
+  // --------------------------------------------------
+  // CATEGORY AND CATALOGUE ELEMENTS
+  // --------------------------------------------------
 
-  const categoryCards =
-    document.querySelectorAll(".category-card");
+  const categoryCards = document.querySelectorAll(".category-card");
+  const categoryMessage = document.getElementById("categoryMessage");
+  const clearCategory = document.getElementById("clearCategory");
 
-  const categoryMessage =
-    document.getElementById("categoryMessage");
+  const cataloguePanel = document.getElementById("cataloguePanel");
+  const catalogueHeading = document.getElementById("catalogueHeading");
+  const catalogueDescription = document.getElementById("catalogueDescription");
 
-  const clearCategory =
-    document.getElementById("clearCategory");
+  const subcategorySelect = document.getElementById("catalogueSubcategory");
+  const typeSelect = document.getElementById("catalogueType");
+  const brandSelect = document.getElementById("catalogueBrand");
+  const modelSelect = document.getElementById("catalogueModel");
+
+  const catalogueResult = document.getElementById("catalogueResult");
+  const catalogueError = document.getElementById("catalogueError");
+
+  const customProductInput = document.getElementById("customCatalogueProduct");
 
   let selectedCategory = "";
+  let currentProductSelection = null;
 
 
-  // SELECT CATEGORY
+  // --------------------------------------------------
+  // HELPER: POPULATE SELECT ELEMENTS
+  // --------------------------------------------------
+
+  function populateSelect(select, items, placeholder) {
+    select.innerHTML = "";
+
+    const defaultOption = document.createElement("option");
+    defaultOption.value = "";
+    defaultOption.textContent = placeholder;
+    select.appendChild(defaultOption);
+
+    items.forEach(item => {
+      const option = document.createElement("option");
+      option.value = item;
+      option.textContent = item;
+      select.appendChild(option);
+    });
+
+    select.disabled = items.length === 0;
+  }
+
+
+  // --------------------------------------------------
+  // HELPER: RESET DOWNSTREAM SELECTORS
+  // --------------------------------------------------
+
+  function resetTypeSelect() {
+    populateSelect(typeSelect, [], "Select a product type");
+    populateSelect(brandSelect, [], "Any brand / Not sure");
+    populateSelect(modelSelect, [], "Any model / Not sure");
+  }
+
+
+  function resetBrandSelect() {
+    populateSelect(brandSelect, [], "Any brand / Not sure");
+    populateSelect(modelSelect, [], "Any model / Not sure");
+  }
+
+
+  function resetModelSelect() {
+    populateSelect(modelSelect, [], "Any model / Not sure");
+  }
+
+
+  // --------------------------------------------------
+  // HELPER: GET CURRENT PRODUCT DATA
+  // --------------------------------------------------
+
+  function getCurrentProductData() {
+    if (!selectedCategory || !catalogueData[selectedCategory]) {
+      return null;
+    }
+
+    const group = subcategorySelect.value;
+    const type = typeSelect.value;
+
+    if (!group || !type) return null;
+
+    return catalogueData[selectedCategory].groups[group][type];
+  }
+
+
+  // --------------------------------------------------
+  // UPDATE PRODUCT SUMMARY
+  // --------------------------------------------------
+
+  function updateProductSummary() {
+    const group = subcategorySelect.value;
+    const type = typeSelect.value;
+    const brand = brandSelect.value;
+    const model = modelSelect.value;
+
+    if (!selectedCategory || !group || !type) {
+      currentProductSelection = null;
+
+      catalogueResult.classList.remove("has-selection");
+
+      catalogueResult.innerHTML = `
+        <div class="flex items-start gap-3">
+          <span class="text-2xl">🛍️</span>
+          <div>
+            <p class="font-bold">Your product selection will appear here.</p>
+            <p class="mt-1 text-xs leading-6 text-zinc-500">
+              Choose a product group and product type to get started.
+            </p>
+          </div>
+        </div>
+      `;
+
+      return;
+    }
+
+    currentProductSelection = {
+      category: selectedCategory,
+      subcategory: group,
+      type: type,
+      brand: brand || "",
+      model: model || ""
+    };
+
+    const summaryParts = [
+      selectedCategory,
+      group,
+      type,
+      brand,
+      model
+    ].filter(Boolean);
+
+    catalogueResult.classList.add("has-selection");
+
+    catalogueResult.innerHTML = `
+      <p class="mono text-[9px] tracking-widest text-blue-600">
+        YOUR CURRENT SELECTION
+      </p>
+      <p class="mt-2 text-lg font-bold text-zinc-900">
+        ${escapeHTML(type)}
+      </p>
+      <p class="mt-2 text-xs leading-6 text-zinc-600">
+        ${summaryParts.map(escapeHTML).join(" / ")}
+      </p>
+      <p class="mt-3 text-[11px] text-zinc-500">
+        Brand and model details are optional. You can still request this product without them.
+      </p>
+    `;
+  }
+
+
+  // --------------------------------------------------
+  // BASIC HTML ESCAPING FOR DYNAMIC TEXT
+  // --------------------------------------------------
+
+  function escapeHTML(value) {
+    return String(value).replace(/[&<>"']/g, character => {
+      const entities = {
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+      };
+
+      return entities[character];
+    });
+  }
+
+
+  // --------------------------------------------------
+  // OPEN A CATEGORY CATALOGUE
+  // --------------------------------------------------
+
+  function openCategory(category) {
+    selectedCategory = category;
+
+    categoryCards.forEach(card => {
+      const active = card.dataset.category === category;
+
+      card.classList.toggle("selected", active);
+      card.setAttribute("aria-pressed", active ? "true" : "false");
+    });
+
+    categoryMessage.textContent = "Exploring: " + category;
+    clearCategory.classList.remove("hidden");
+
+    catalogueHeading.textContent = category;
+    catalogueDescription.textContent =
+      catalogueData[category]?.description ||
+      "Tell us what you're looking for and we'll investigate.";
+
+    cataloguePanel.classList.add("active");
+
+    const groups = catalogueData[category]
+      ? Object.keys(catalogueData[category].groups)
+      : [];
+
+    populateSelect(
+      subcategorySelect,
+      groups,
+      "Choose a product group"
+    );
+
+    resetTypeSelect();
+
+    currentProductSelection = null;
+    updateProductSummary();
+
+    catalogueError.classList.add("hidden");
+
+    cataloguePanel.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest"
+    });
+  }
+
+
+  // --------------------------------------------------
+  // CATEGORY CARD CLICK EVENTS
+  // --------------------------------------------------
 
   categoryCards.forEach(card => {
     card.setAttribute("aria-pressed", "false");
 
     card.addEventListener("click", function() {
-      selectedCategory = this.dataset.category;
-
-      categoryCards.forEach(item => {
-        item.classList.remove("selected");
-        item.setAttribute("aria-pressed", "false");
-      });
-
-      this.classList.add("selected");
-      this.setAttribute("aria-pressed", "true");
-
-      categoryMessage.textContent =
-        "Selected: " + selectedCategory;
-
-      clearCategory.classList.remove("hidden");
-
-      searchInput.placeholder =
-        "What are you looking for in " + selectedCategory + "?";
-
-      searchError.classList.add("hidden");
-
-      document.getElementById("home").scrollIntoView({
-        behavior: "smooth"
-      });
-
-      searchInput.focus();
+      openCategory(this.dataset.category);
     });
   });
 
 
+  // --------------------------------------------------
+  // SELECT PRODUCT GROUP
+  // --------------------------------------------------
+
+  subcategorySelect.addEventListener("change", function() {
+    const group = this.value;
+
+    resetTypeSelect();
+
+    if (!group || !selectedCategory || !catalogueData[selectedCategory]) {
+      updateProductSummary();
+      return;
+    }
+
+    const types = Object.keys(
+      catalogueData[selectedCategory].groups[group]
+    );
+
+    populateSelect(
+      typeSelect,
+      types,
+      "Choose a product type"
+    );
+
+    updateProductSummary();
+  });
+
+
+  // --------------------------------------------------
+  // SELECT PRODUCT TYPE
+  // --------------------------------------------------
+
+  typeSelect.addEventListener("change", function() {
+    resetBrandSelect();
+
+    const productData = getCurrentProductData();
+
+    if (!productData) {
+      updateProductSummary();
+      return;
+    }
+
+    const brands = Object.keys(productData);
+
+    populateSelect(
+      brandSelect,
+      brands,
+      "Any brand / Not sure"
+    );
+
+    updateProductSummary();
+  });
+
+
+  // --------------------------------------------------
+  // SELECT BRAND
+  // --------------------------------------------------
+
+  brandSelect.addEventListener("change", function() {
+    resetModelSelect();
+
+    const productData = getCurrentProductData();
+    const brand = this.value;
+
+    if (productData && brand && productData[brand]) {
+      populateSelect(
+        modelSelect,
+        productData[brand],
+        "Any model / Not sure"
+      );
+    }
+
+    updateProductSummary();
+  });
+
+
+  // --------------------------------------------------
+  // SELECT MODEL
+  // --------------------------------------------------
+
+  modelSelect.addEventListener("change", function() {
+    updateProductSummary();
+  });
+
+
+  // --------------------------------------------------
+  // CLOSE CATALOGUE
+  // --------------------------------------------------
+
+  document.getElementById("closeCatalogue").addEventListener("click", function() {
+    cataloguePanel.classList.remove("active");
+  });
+
+
+  // --------------------------------------------------
+  // RESET CATALOGUE SELECTION
+  // --------------------------------------------------
+
+  document.getElementById("resetCatalogue").addEventListener("click", function() {
+    if (!selectedCategory) return;
+
+    openCategory(selectedCategory);
+
+    customProductInput.value = "";
+  });
+
+
+  // --------------------------------------------------
   // CLEAR CATEGORY
+  // --------------------------------------------------
 
   clearCategory.addEventListener("click", function() {
     selectedCategory = "";
+    currentProductSelection = null;
 
-    categoryCards.forEach(item => {
-      item.classList.remove("selected");
-      item.setAttribute("aria-pressed", "false");
+    categoryCards.forEach(card => {
+      card.classList.remove("selected");
+      card.setAttribute("aria-pressed", "false");
     });
 
     categoryMessage.textContent =
       "Not sure where your product belongs?";
 
     clearCategory.classList.add("hidden");
+    cataloguePanel.classList.remove("active");
 
     searchInput.placeholder = "I'm looking for...";
   });
 
 
-  // SEARCH AND REDIRECT
+  // --------------------------------------------------
+  // BUILD ORDER PAGE URL
+  // --------------------------------------------------
+
+  function redirectToOrder(details) {
+    const params = new URLSearchParams();
+
+    if (details.product) {
+      params.set("product", details.product);
+    }
+
+    if (details.category) {
+      params.set("category", details.category);
+    }
+
+    if (details.subcategory) {
+      params.set("subcategory", details.subcategory);
+    }
+
+    if (details.type) {
+      params.set("type", details.type);
+    }
+
+    if (details.brand) {
+      params.set("brand", details.brand);
+    }
+
+    if (details.model) {
+      params.set("model", details.model);
+    }
+
+    window.location.href =
+      orderPage + "?" + params.toString();
+  }
+
+
+  // --------------------------------------------------
+  // REQUEST SELECTED CATALOGUE PRODUCT
+  // --------------------------------------------------
+
+  document.getElementById("requestSelectedProduct").addEventListener("click", function() {
+    if (!currentProductSelection) {
+      catalogueError.textContent =
+        "Please choose a product group and product type first.";
+
+      catalogueError.classList.remove("hidden");
+      return;
+    }
+
+    catalogueError.classList.add("hidden");
+
+    const selection = currentProductSelection;
+
+    const productName = [
+      selection.type,
+      selection.model
+    ].filter(Boolean).join(" ");
+
+    redirectToOrder({
+      product: productName,
+      category: selection.category,
+      subcategory: selection.subcategory,
+      type: selection.type,
+      brand: selection.brand,
+      model: selection.model
+    });
+  });
+
+
+  // --------------------------------------------------
+  // CUSTOM PRODUCT REQUEST
+  // --------------------------------------------------
+
+  document.getElementById("requestCustomProduct").addEventListener("click", function() {
+    const customProduct = customProductInput.value.trim();
+
+    if (!customProduct) {
+      catalogueError.textContent =
+        "Please describe the product you want first.";
+
+      catalogueError.classList.remove("hidden");
+      customProductInput.focus();
+      return;
+    }
+
+    catalogueError.classList.add("hidden");
+
+    redirectToOrder({
+      product: customProduct,
+      category: selectedCategory || "Other",
+      subcategory: "Custom request",
+      type: customProduct
+    });
+  });
+
+
+  customProductInput.addEventListener("input", function() {
+    if (this.value.trim()) {
+      catalogueError.classList.add("hidden");
+    }
+  });
+
+
+  // --------------------------------------------------
+  // HERO SEARCH AND REDIRECT
+  // --------------------------------------------------
 
   searchForm.addEventListener("submit", function(event) {
     event.preventDefault();
 
     const product = searchInput.value.trim();
 
-    if (!product && !selectedCategory) {
+    if (!product) {
       searchError.classList.remove("hidden");
       searchInput.focus();
       return;
@@ -1259,13 +2680,10 @@
 
     searchError.classList.add("hidden");
 
-    const params = new URLSearchParams();
-
-    if (product) params.set("product", product);
-    if (selectedCategory) params.set("category", selectedCategory);
-
-    window.location.href =
-      orderPage + "?" + params.toString();
+    redirectToOrder({
+      product: product,
+      category: selectedCategory
+    });
   });
 
 
@@ -1276,22 +2694,23 @@
   });
 
 
+  // --------------------------------------------------
   // FINDS WALL PRODUCT SELECTION
+  // --------------------------------------------------
 
   document.querySelectorAll(".find-card").forEach(card => {
     card.addEventListener("click", function() {
-      const params = new URLSearchParams();
-
-      params.set("product", this.dataset.product);
-      params.set("category", this.dataset.category);
-
-      window.location.href =
-        orderPage + "?" + params.toString();
+      redirectToOrder({
+        product: this.dataset.product,
+        category: this.dataset.category
+      });
     });
   });
 
 
+  // --------------------------------------------------
   // FAQ ACCORDION
+  // --------------------------------------------------
 
   document.querySelectorAll(".faq-item").forEach(item => {
     const button = item.querySelector(".faq-question");
@@ -1310,7 +2729,9 @@
   });
 
 
+  // --------------------------------------------------
   // SCROLL REVEAL
+  // --------------------------------------------------
 
   const revealElements = document.querySelectorAll(
     "#categories, #finds, #about, #how-it-works, #faq"
@@ -1334,6 +2755,7 @@
       observer.observe(element);
     });
   }
+
 </script>
 
 </body>
